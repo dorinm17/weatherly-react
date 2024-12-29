@@ -1,6 +1,48 @@
 :root {
     --text-color: rgb(224 225 221);
+    --logo-color: rgb(26 186 255);
+    --motto-color: rgb(171 151 189);
+    --main-bg-color: rgb(13 27 42);
+    --accent-bg-color: rgb(119 141 169);
 }
+html {
+    min-height: 100%;
 
+    font-size: 62.5%;
+
+    box-sizing: border-box;
+}
+*,
+*::before,
+*::after { box-sizing: inherit; }
+body {
+    margin: 0;
+    height: 100%;
+
+    font-size: 1.6rem;
+    font-family: 'Avenir Next', system-ui;
+    letter-spacing: 0.032rem;
+    color: var(--text-color);
+
+    background: linear-gradient(to bottom, var(--main-bg-color) 60%, var(--accent-bg-color) 100%) no-repeat;
+    background-size: cover;
+}
+h1,
+h2 { font-family: 'Adobe Clean', system-ui; }
+h1 { 
+    font-size: 4rem;
+    letter-spacing: 1.2rem;
+    color: var(--logo-color);
+}
+h2 {
+    font-size: 2.5rem; 
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+    color: var(--motto-color);
+}
+footer {
+    font-size: 1.5rem;
+    letter-spacing: 0.015rem;
+}
 #socials { list-style-type: none; }
-#socials img { width: 24px; }
+#socials img { width: 30px; }
