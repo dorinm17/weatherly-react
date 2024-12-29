@@ -1,0 +1,6 @@
+:root {
+    --text-color: rgb(224 225 221);
+}
+
+#socials { list-style-type: none; }
+#socials img { width: 24px; }
