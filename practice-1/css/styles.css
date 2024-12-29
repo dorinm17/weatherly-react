@@ -20,7 +20,7 @@ body {
     height: 100%;
 
     font-size: 1.6rem;
-    font-family: 'Avenir Next', system-ui;
+    font-family: 'Avenir Next', 'Arial Rounded MT Regular', system-ui;
     letter-spacing: 0.032rem;
     color: var(--text-color);
 
@@ -28,7 +28,7 @@ body {
     background-size: cover;
 }
 h1,
-h2 { font-family: 'Adobe Clean', system-ui; }
+h2 { font-family: 'Adobe Clean', 'Trebuchet MS', system-ui; }
 h1 { 
     font-size: 4rem;
     letter-spacing: 1.2rem;
