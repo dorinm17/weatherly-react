@@ -15,20 +15,22 @@
                 <!-- Motto -->
                 <h2>Don't be under the weather<span id="exclamation-mark">!</span></h2>
             </div>
-            <!-- Weather transition image -->
+
             <img id="banner" src="images/weather-transition.jpeg" alt="">
-            <!-- Look up the weather for a city -->
+
+            <!-- Search Box -->
             <nav>
                 <form action="#" method="get">
-                    <label for="city">City</label>
-                    <button type="submit"><img src="images/search.svg" alt="search"></button>
-                    <input type="text" id="city" placeholder="Search for your city">
+                    <button type="submit" aria-label="Submit your search"><img src="images/search.svg" alt="search"></button>
+                    <input type="text" id="city" placeholder="Search for your city" aria-label="Search for your city">
                 </form>
             </nav>
         </header>
 
         <main>
             <section id="five-day-forecast">
+                <p>Today</p>
+                <p>Saturday</p>
             </section>
 
             <section id="today-forecast">
@@ -39,6 +41,7 @@
         </main>
         
         <footer>
+            <!-- Copyright -->
             <p>&copy; 2024 Weatherly, LLC. All rights reserved.</p>
             <!-- Social Media -->
             <ul>

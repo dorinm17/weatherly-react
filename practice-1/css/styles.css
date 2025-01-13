@@ -4,10 +4,14 @@
 :root {
     --text-color: rgb(224 225 221);
     --logo-color: rgb(26 186 255);
-    --motto-color: rgb(171 151 189 / 0.9);
+    --motto-color: rgb(171 151 189 / .9);
+    --nav-color: rgb(65 90 119 / .5);
     --main-bg-color: rgb(13 27 42);
     --accent-bg-color: rgb(119 141 169);
-    --footer-color: rgb(27 38 59);
+    --section-bg-color: rgb(65 90 119);
+    --section-and-footer-color: rgb(27 38 59);
+    --normal-font: 'Avenir Next', 'Arial Rounded MT Regular', system-ui;
+    --heading-font: 'Adobe Clean', 'Trebuchet MS', system-ui;
 }
 html {
     min-height: 100%;
@@ -26,7 +30,7 @@ body {
     height: 100%;
 
     font-size: 1.6rem;
-    font-family: 'Avenir Next', 'Arial Rounded MT Regular', system-ui;
+    font-family: var(--normal-font);
     letter-spacing: 0.032rem;
     color: var(--text-color);
 
@@ -37,7 +41,8 @@ body {
         Header
 ------------------- */
 header {
-    margin-inline: 3rem; 
+    display: grid;
+    margin-inline: 3rem;
 }
 header div {
     display: flex;
@@ -46,7 +51,7 @@ header div {
     justify-content: space-between;
     gap: 10rem;
 
-    font-family: 'Adobe Clean', 'Trebuchet MS', system-ui;
+    font-family: var(--heading-font);
 }
 h1 {
     max-width: 100%;
@@ -79,6 +84,48 @@ h2 {
     object-fit: cover;
 }
 /* -------------------
+    Search Box
+------------------- */
+nav form {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    grid-template-rows: 1fr;
+    height: 5.5rem;
+    margin-bottom: 6rem;
+}
+nav button,
+nav input {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+
+    font-size: 1.9rem;
+    all: unset; /* override the weigth of the font in the input */
+    color: var(--normal-font);
+    text-align: center;
+    letter-spacing: 0.076rem;
+
+    border: 0;
+    background-color: var(--nav-color);
+}
+nav button:hover {
+    cursor: pointer;
+
+    opacity: 0.6;
+}
+nav input::placeholder {
+    font-weight: 200;
+    font-style: italic;
+    color: var(--normal-font);
+}
+nav input:focus::placeholder {
+    color: transparent;
+}
+/* -------------------
+        Main
+------------------- */
+
+/* -------------------
         Footer
 ------------------- */
 footer {
@@ -95,7 +142,7 @@ footer {
     font-size: 1.5rem;
     letter-spacing: 0.015rem;
 
-    background: var(--footer-color);
+    background-color: var(--section-and-footer-color);
 }
 footer ul {
     display: flex;
