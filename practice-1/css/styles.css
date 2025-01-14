@@ -7,7 +7,7 @@
     --motto-color: rgb(171 151 189 / .9);
     --nav-color: rgb(65 90 119 / .5);
     --main-bg-color: rgb(13 27 42);
-    --accent-bg-color: rgb(119 141 169);
+    --accent-color: rgb(119 141 169);
     --section-bg-color: rgb(65 90 119);
     --section-and-footer-color: rgb(27 38 59);
     --normal-font: 'Avenir Next', 'Arial Rounded MT Regular', system-ui;
@@ -26,6 +26,10 @@ html {
 body {
     position: relative;
 
+    /* Trick to fix the footer at the bpottom of the page */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
     margin: 0;
     height: 100%;
 
@@ -34,7 +38,7 @@ body {
     letter-spacing: 0.032rem;
     color: var(--text-color);
 
-    background: linear-gradient(to bottom, var(--main-bg-color) 60%, var(--accent-bg-color)) no-repeat;
+    background: linear-gradient(to bottom, var(--main-bg-color) 60%, var(--accent-color)) no-repeat;
     background-size: cover;
 }
 /* -------------------
@@ -89,21 +93,20 @@ h2 {
 nav form {
     display: grid;
     grid-template-columns: 5.5rem 1fr;
-    grid-template-rows: 1fr;
     height: 5.5rem;
-    margin-bottom: 6rem;
 }
-nav button,
 nav input {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-
     font-size: 1.9rem;
     all: unset; /* override the weigth of the font in the input */
     color: var(--normal-font);
+
     text-align: center;
+    
     letter-spacing: 0.076rem;
+}
+nav button,
+nav input {
+    padding: 0;
 
     border: 0;
     background-color: var(--nav-color);
@@ -124,20 +127,49 @@ nav input:focus::placeholder {
 /* -------------------
         Main
 ------------------- */
+main {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 1fr 1fr;
+    gap: 5rem;
+    margin: 5rem 3rem;
+}
+section {
+    padding-inline: 3rem;
+    border-radius: 20px;
+}
+#five-day-forecast {
+    grid-row: 1 / 3;
+    display: grid;
+    background: linear-gradient(var(--section-and-footer-color), var(--section-bg-color) 50%);
+}
+.day {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    padding: 2rem 5rem;
+    gap: 2rem;
 
+    border-bottom: 1px solid var(--accent-color);
+}
+.weather-for-the-day,
+.weather-condition {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.weather-condition p:first-of-type,
+.temperature { font-weight: 600; }
+.day:last-child { border-bottom: 0; }
+.weather-for-the-day img { width: 7.8rem; }
+.weather-condition p:last-of-type { font-size: 3rem; }
 /* -------------------
         Footer
 ------------------- */
 footer {
-    position: fixed;
-    bottom: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 3rem;
-    width: 100%;
-    height: 6%;
 
     font-size: 1.5rem;
     letter-spacing: 0.015rem;
@@ -155,11 +187,28 @@ footer img:hover { opacity: 0.7; }
 /* -------------------
     Media Queries
 ------------------- */
+@media (max-width: 1400px) {
+    .day {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 5rem;
+    }
+    .weather-condition { flex-direction: column; }
+    .weather-condition p { margin: 0; }
+}
 @media (max-width: 1200px) {
     header div {
         margin-left: 15rem;
         margin-right: 10rem;
     }
+    .day {
+        grid-template-columns: 1fr 1fr;
+        padding-inline: 0;
+        gap: 0;
+    }
+    .weather-for-the-day {
+        flex-direction: column;
+    }
+    .weather-condition { justify-content: space-around;}
 }
 @media (max-width: 900px) {
     header div {
