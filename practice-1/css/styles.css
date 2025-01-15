@@ -28,7 +28,8 @@ html {
 body {
     position: relative;
 
-    overscroll-behavior: smooth;
+    overscroll-behavior-y: smooth;
+    overscroll-behavior-x: none;
     /* Trick to fix the footer at the bottom of the page */
     display: grid;
     grid-template-rows: auto 1fr auto;
