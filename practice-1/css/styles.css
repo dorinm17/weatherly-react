@@ -39,7 +39,6 @@ body {
     background-size: cover;
 
     scroll-behavior: smooth;
-    overscroll-behavior-x: none;
 }
 /* -------------------
         Header
