@@ -30,9 +30,9 @@ body {
 
     margin: 0;
     min-height: 100%;
-    /* Trick to make the footer stick to the bottom */
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr auto; /* Trick to make the footer stick to the bottom */
+    gap: 5rem;
 
     font-size: 1.6rem;
     font-family: var(--normal-font);
@@ -134,7 +134,7 @@ main {
     grid-template-columns: 1fr 1.3fr;
     grid-template-rows: 1.3fr 1fr;
     gap: 5rem;
-    margin: 5rem 3rem 10.5rem;
+    margin-inline: 3rem;
 }
 section {
     padding-inline: 3rem;
@@ -245,16 +245,11 @@ h3,
         Footer
 ------------------- */
 footer {
-    position: absolute;
-    bottom: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+    grid-row: 3;
     padding-inline: 3rem;
-
-    height: 5.5rem;
-    width: 100%;
 
     font-size: 1.5rem;
     letter-spacing: 0.015rem;
@@ -379,7 +374,6 @@ footer img:hover { opacity: 0.7; }
     }
 }
 @media (max-width: 550px) {
-    main { margin-bottom: 14.3rem;}
     .day {
         grid-template-columns: 1fr 1fr;
         padding-inline: 0;
@@ -405,7 +399,6 @@ footer img:hover { opacity: 0.7; }
     }
 }
 @media (max-width: 380px) {
-    main { margin-bottom: 13.65rem;}
     .weather-for-the-day img,
     #hourly-forecast img { width: 6rem; }
     .weather-condition p:last-of-type { font-size: 2.5rem; }
