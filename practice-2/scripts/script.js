@@ -2,13 +2,6 @@
 const OPENWEATHER_API_KEY = "c2b684a41108eb410abf5520de64edd6";
 const GOOGLE_MAPS_API_KEY = "AIzaSyD4kq9y5crf0SYPJq-YxEhUtETDm5zfOBs";
 
-class Location {
-  constructor(city, countryCode) {
-    this.city = city;
-    this.countryCode = countryCode;
-  }
-}
-
 class WeatherData {
   constructor(hourlyForecast, dailyForecast, airPollution) {
     this.hourlyForecast = hourlyForecast;
@@ -30,7 +23,7 @@ document.querySelector("#copyYear").textContent = new Date().getFullYear();
 const reverseGeocode = async (latitude, longitude) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`;
 
-  const location = await fetch(url)
+  const city = await fetch(url)
     .then((response) => response.json())
     .then((data) => {
       if (!data.results || data.results.length === 0)
@@ -40,37 +33,34 @@ const reverseGeocode = async (latitude, longitude) => {
       const city = addressComponents.find((component) =>
         component.types.includes("locality")
       ).long_name;
-      const countryCode = addressComponents.find((component) =>
-        component.types.includes("country")
-      ).short_name;
 
-      return new Location(city, countryCode);
+      return city;
     })
     .catch((error) => {
       console.error("Error getting city name:", error);
-      return JSON.parse(sessionStorage.getItem("currentLocation"));
+      return sessionStorage.getItem("city");
     });
 
-  return location;
+  return city;
 };
 
 // Use OpenWeatherMap API to retrieve the weather data for a given city and country code.
-const getWeather = async (city, countryCode) => {
-  const hourlyUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city},${countryCode}&cnt=11&&appid=${OPENWEATHER_API_KEY}&units=metric`;
+const getWeather = async (city) => {
+  const hourlyUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&cnt=11&&appid=${OPENWEATHER_API_KEY}&units=metric`;
   let hourlyForecast = await fetch(hourlyUrl)
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error fetching hourly forecast:", error);
     });
 
-  const dailyUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city},${countryCode}&cnt=5&appid=${OPENWEATHER_API_KEY}&units=metric`;
+  const dailyUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=5&appid=${OPENWEATHER_API_KEY}&units=metric`;
   let dailyForecast = await fetch(dailyUrl)
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error fetching daily forecast:", error);
     });
 
-  const coords = await getCityCoordinates(city, countryCode);
+  const coords = await getCityCoordinates(city);
   const airPollutionUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coords.lat}&lon=${coords.lon}&appid=${OPENWEATHER_API_KEY}`;
   let airPollution = await fetch(airPollutionUrl)
     .then((response) => response.json())
@@ -199,8 +189,8 @@ const convertAQI = (aqi) => {
   }
 };
 
-const getCityCoordinates = async (city, countryCode) => {
-  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${countryCode}&limit=1&appid=${OPENWEATHER_API_KEY}`;
+const getCityCoordinates = async (city) => {
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${OPENWEATHER_API_KEY}`;
   const response = await fetch(url)
     .then((response) => response.json())
     .catch((error) => {
@@ -259,39 +249,43 @@ const displayWeather = async () => {
     await fiveDayForecast(dailyForecast);
     await todayDetails(hourlyForecast, airPollution);
 
-    console.log(dailyForecast);
+    document.querySelector("#loading-spinner").style.display = "none";
     document.querySelector("main").style.display = "grid";
   } catch (error) {
     console.error("Error displaying complete weather info:", error);
   }
 };
 
+// When the current session ends, reset the weather to the user's current location.
+window.addEventListener("beforeunload", () => {
+  sessionStorage.setItem("userInput", false);
+});
+
 // Before the user gets to search for a city, the app will display the weather for the user's current location.
 if (
   sessionStorage.getItem("userInput") === null ||
   sessionStorage.getItem("userInput") === "false"
 ) {
-  let location = new Location("Bucharest", "RO"); // Backup location in case geolocation fails
-  sessionStorage.setItem("currentLocation", JSON.stringify(location));
-  sessionStorage.setItem("userInput", false);
+  let city = "Bucharest"; // Backup location in case geolocation fails
+  sessionStorage.setItem("currentCity",  city);
 
   (async () => {
     try {
       if (navigator.geolocation) {
-        // Wrap geolocation in a Promise to ensure we wait for it
+        // Wrap geolocation in a Promise to ensure we wait for it.
         const position = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        location = await reverseGeocode(latitude, longitude);
-        sessionStorage.setItem("currentLocation", JSON.stringify(location));
+        city = await reverseGeocode(latitude, longitude);
+        sessionStorage.setItem("currentCity", city);
       } else {
         console.log("Geolocation is not supported by this browser.");
       }
       // Now that we have the actual current location, fetch the weather
-      await getWeather(location.city, location.countryCode);
+      await getWeather(city);
       displayWeather();
     } catch (error) {
       if (error instanceof GeolocationPositionError || error.code === 1) {
@@ -302,3 +296,15 @@ if (
     }
   })();
 }
+
+// When the user submits a city, fetch the weather for that city.
+document.querySelector("form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const city = document.querySelector("#city").value;
+
+  sessionStorage.setItem("city", city);
+  sessionStorage.setItem("userInput", true);
+
+  await getWeather(city);
+  displayWeather();
+});

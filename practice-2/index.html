@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="css/styles.css">
         <!-- Polyfill for handling promises on older browsers -->
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-        <script type="module" src="scripts/script.js"></script>
+        <script src="scripts/script.js" defer></script>
     </head>
 
     <body>
@@ -34,6 +34,11 @@
                 </form>
             </nav>
         </header>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner">
+            <div class="spinner-circle"></div>
+        </div>
 
         <main>
             <section id="five-day-forecast">

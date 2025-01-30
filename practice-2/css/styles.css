@@ -13,6 +13,7 @@
   --last-section-bg-color: rgb(27 38 59 / 0.3);
   --normal-font: "Avenir Next", "Arial Rounded MT Regular", system-ui;
   --heading-font: "Adobe Clean", "Trebuchet MS", system-ui;
+  --loading-spinner-color: rgb(52 152 219);
 }
 html {
   height: 100%;
@@ -502,5 +503,35 @@ footer img:hover {
   }
   footer {
     padding-inline: 1.5rem;
+  }
+}
+/* -------------------
+    Loading Spinner
+------------------- */
+/* Center the spinner */
+#loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+/* Spinner Animation */
+.spinner-circle {
+  width: 50px;
+  height: 50px;
+
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid var(--loading-spinner-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+/* Rotate animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
