@@ -1,0 +1,3 @@
+{
+  "include": ["scripts/**/*"],  // Include all TS files in the scripts directory
+}

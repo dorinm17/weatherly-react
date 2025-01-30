@@ -4,6 +4,7 @@ import {
   chooseImage,
   convertMpsToKmph,
   convertAQI,
+  convertToLocalTime,
 } from "./utils.js";
 
 const todayForecast = async (dailyForecast, hourlyForecast) => {
@@ -27,10 +28,11 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
   let imageTag = chooseImage(hourlyForecast.list[1].weather[0].id, daytime);
   rightNowDiv.append(imageTag);
 
+  console.log(hourlyForecast);
   document.querySelectorAll("#hourly-forecast div").forEach((div, index) => {
-    const hour = hourlyForecast.list[index + 1];
-    const time = hour.dt_txt.split(" ")[1].split(":")[0];
-    div.innerHTML = `<p>${time}:00</p>`;
+    const hour = hourlyForecast.list[index];
+    const time = convertToLocalTime(hour.dt, hourlyForecast.city.timezone);
+    div.innerHTML = `<p>${time}</p>`;
 
     imageTag = chooseImage(hour.weather[0].id, daytime);
     const pTemp = document.createElement("p");
@@ -76,26 +78,20 @@ const todayDetails = async (hourlyForecast, airPollution) => {
       <li><img src="images/temperature.svg" alt="">Feels like:  ${hourlyForecast.list[0].main.feels_like.toFixed(
         0
       )}&deg;C</li>
-      <li><img src="images/sunrise.svg" alt="">Rise:  ${new Date(
-        hourlyForecast.city.sunrise * 1000
-      ).toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: false,
-      })}</li>
+      <li><img src="images/sunrise.svg" alt="">Rise:  ${convertToLocalTime(
+        hourlyForecast.city.sunrise,
+        hourlyForecast.city.timezone
+      )}</li>
       <li><img src="images/wind.svg" alt="">Wind:  ${convertMpsToKmph(
         hourlyForecast.list[0].wind.speed
       )}km/h</li>
       <li><img src="images/air-quality.svg" alt="">Air quality:  ${convertAQI(
         airPollution.list[0].main.aqi
       )}</li>
-      <li><img src="images/sunset.svg" alt="">Set:  ${new Date(
-        hourlyForecast.city.sunset * 1000
-      ).toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: false,
-      })}</li>
+      <li><img src="images/sunset.svg" alt="">Set:  ${convertToLocalTime(
+        hourlyForecast.city.sunset,
+        hourlyForecast.city.timezone
+      )}</li>
       <li><img src="images/gusts.svg" alt="">Gusts:  ${convertMpsToKmph(
         hourlyForecast.list[0].wind.gust
       )}km/h </li>

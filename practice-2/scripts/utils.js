@@ -39,4 +39,13 @@ const convertAQI = (aqi) => {
   return descArr[aqi - 1];
 };
 
-export { capitalize, dayOrNight, chooseImage, convertMpsToKmph, convertAQI };
+const convertToLocalTime = (time, timezone) => {
+  return new Date((time + timezone) * 1000).toLocaleTimeString("en-US", {
+    timeZone: "UTC",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: false,
+  });
+};
+
+export { capitalize, dayOrNight, chooseImage, convertMpsToKmph, convertAQI, convertToLocalTime };

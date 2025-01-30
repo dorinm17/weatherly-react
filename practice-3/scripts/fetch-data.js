@@ -45,7 +45,7 @@ const getWeather = async (city) => {
   const coords = await getCityCoordinates(city);
 
   const urls = [
-    `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&cnt=11&&appid=${OPENWEATHER_API_KEY}&units=metric`,
+    `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&cnt=10&&appid=${OPENWEATHER_API_KEY}&units=metric`,
     `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=5&appid=${OPENWEATHER_API_KEY}&units=metric`,
     `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coords.lat}&lon=${coords.lon}&appid=${OPENWEATHER_API_KEY}`,
   ];
