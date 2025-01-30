@@ -240,6 +240,8 @@ const todayDetails = async (hourlyForecast, airPollution) => {
 // Display the current weather data on the page for all sections.
 const displayWeather = async () => {
   try {
+    document.querySelector("main").style.display = "none";
+    document.querySelector("#loading-spinner").style.display = "block";
     const weatherData = JSON.parse(sessionStorage.getItem("currentWeather"));
     const dailyForecast = weatherData.dailyForecast;
     const hourlyForecast = weatherData.hourlyForecast;
@@ -248,11 +250,11 @@ const displayWeather = async () => {
     await todayForecast(dailyForecast, hourlyForecast);
     await fiveDayForecast(dailyForecast);
     await todayDetails(hourlyForecast, airPollution);
-
-    document.querySelector("#loading-spinner").style.display = "none";
-    document.querySelector("main").style.display = "grid";
   } catch (error) {
     console.error("Error displaying complete weather info:", error);
+  } finally {
+    document.querySelector("#loading-spinner").style.display = "none";
+    document.querySelector("main").style.display = "grid";
   }
 };
 
