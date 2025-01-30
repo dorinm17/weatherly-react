@@ -269,7 +269,7 @@ footer img:hover { opacity: 0.7; }
 /* -------------------
     Media Queries
 ------------------- */
-@media (max-width: 1510px) and (min-width: 1201px) {
+@media (max-width: 1750px) and (min-width: 1201px) {
     .day {
         grid-template-columns: 1.5fr 1fr;
         gap: 5rem;

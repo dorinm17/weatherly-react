@@ -1,0 +1,42 @@
+const capitalize = (s) => {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+const dayOrNight = (sunrise, sunset) => {
+  const now = new Date().getTime() / 1000;
+  return now >= sunrise && now < sunset;
+};
+
+// Display an accurate weather icon.
+const chooseImage = (code, daytime) => {
+  let image;
+
+  if (code >= 200 && code < 300) image = "thunderstorm";
+  else if (code >= 300 && code < 600) image = "rain";
+  else if (code >= 600 && code <= 613) image = "snow";
+  else if (code >= 615 && code < 700) image = "rain-and-snow";
+  else if ([701, 721, 741, 771].includes(code)) image = "mist";
+  else if (code === 781) image = "tornado";
+  else if (code >= 700 && code < 800) image = "smoke";
+  else if (code === 800) image = daytime ? "sun" : "moon";
+  else if ([801, 802].includes(code))
+    image = daytime ? "sun-and-clouds" : "moon-and-clouds";
+  else if (code >= 803) image = "clouds";
+
+  const imageTag = document.createElement("img");
+  imageTag.src = `images/${image}.svg`;
+  imageTag.alt = "";
+  return imageTag;
+};
+
+const convertMpsToKmph = (mps) => {
+  return (mps * 3.6).toFixed(0);
+};
+
+// Convert the Air Quality Index to a more verbose description.
+const convertAQI = (aqi) => {
+  const descArr = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+  return descArr[aqi - 1];
+};
+
+export { capitalize, dayOrNight, chooseImage, convertMpsToKmph, convertAQI };
