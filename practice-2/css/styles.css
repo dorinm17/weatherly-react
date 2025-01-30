@@ -216,7 +216,7 @@ section {
   gap: 1rem;
 }
 h3 {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 600;
   letter-spacing: 0.1rem;
 }
@@ -224,7 +224,9 @@ h3,
 #right-now p {
   margin: 0;
 }
+#country-code,
 #right-now p:first-of-type {
+  font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: 0.05rem;
 }
