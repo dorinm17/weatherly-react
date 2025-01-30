@@ -138,8 +138,7 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
   let imageTag = chooseImage(hourlyForecast.list[1].weather[0].id, daytime);
   rightNowDiv.append(imageTag);
 
-  const hourlyDivs = document.querySelectorAll("#hourly-forecast div");
-  hourlyDivs.forEach((div, index) => {
+  document.querySelectorAll("#hourly-forecast div").forEach((div, index) => {
     const hour = hourlyForecast.list[index + 1];
     const time = hour.dt_txt.split(" ")[1].split(":")[0];
     div.innerHTML = `<p>${time}:00</p>`;
@@ -167,9 +166,8 @@ const fiveDayForecast = async (dailyForecast) => {
     day.append(imageTag);
   });
 
-  const weatherConditions = document.querySelectorAll(".weather-condition");
-  weatherConditions.forEach((day) => {
-    const weather = dailyForecast.list[0];
+  document.querySelectorAll(".weather-condition").forEach((day, index) => {
+    const weather = dailyForecast.list[index];
     day.innerHTML = `
     <p>${capitalize(weather.weather[0].description)}</p>
      <p><span class="temperature">${weather.temp.max.toFixed(
@@ -213,8 +211,7 @@ const getCityCoordinates = async (city, countryCode) => {
 };
 
 const todayDetails = async (hourlyForecast, airPollution) => {
-  const ulIndexes = document.querySelector("#today-details ul");
-  ulIndexes.innerHTML = `
+  document.querySelector("#today-details ul").innerHTML = `
     <li><img src="images/humidity.svg" alt=""> Humidity:  ${
       hourlyForecast.list[0].main.humidity
     }%</li>
@@ -258,13 +255,11 @@ const displayWeather = async () => {
     const hourlyForecast = weatherData.hourlyForecast;
     const airPollution = weatherData.airPollution;
 
-    console.log("Daily forecast:", dailyForecast);
-    console.log("Hourly forecast:", hourlyForecast);
-
     await todayForecast(dailyForecast, hourlyForecast);
     await fiveDayForecast(dailyForecast);
     await todayDetails(hourlyForecast, airPollution);
 
+    console.log(dailyForecast);
     document.querySelector("main").style.display = "grid";
   } catch (error) {
     console.error("Error displaying complete weather info:", error);
