@@ -13,8 +13,8 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
       <div>
           <h3>${hourlyForecast.city.name}<span id="country-code"> ${
     hourlyForecast.city.country
-  }</span> ${hourlyForecast.list[1].main.temp.toFixed(0)}&deg;C</h3>
-          <p>${capitalize(hourlyForecast.list[1].weather[0].description)}</p>
+  }</span> ${hourlyForecast.list[0].main.temp.toFixed(0)}&deg;C</h3>
+          <p>${capitalize(hourlyForecast.list[0].weather[0].description)}</p>
           <p>Precipitation: ${dailyForecast.list[0].pop * 100}%</p>
           <p>H:${dailyForecast.list[0].temp.max.toFixed(
             0
@@ -28,7 +28,6 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
   let imageTag = chooseImage(hourlyForecast.list[1].weather[0].id, daytime);
   rightNowDiv.append(imageTag);
 
-  console.log(hourlyForecast);
   document.querySelectorAll("#hourly-forecast div").forEach((div, index) => {
     const hour = hourlyForecast.list[index];
     const time = convertToLocalTime(hour.dt, hourlyForecast.city.timezone);
