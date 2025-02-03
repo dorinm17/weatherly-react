@@ -7,6 +7,11 @@ import {
   convertToLocalTime,
 } from "./utils.js";
 
+/**
+ *
+ * @param {object} dailyForecast
+ * @param {object} hourlyForecast
+ */
 const todayForecast = async (dailyForecast, hourlyForecast) => {
   const rightNowDiv = document.querySelector("#right-now");
   rightNowDiv.innerHTML = `
@@ -40,6 +45,10 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
   });
 };
 
+/**
+ *
+ * @param {object} dailyForecast
+ */
 const fiveDayForecast = async (dailyForecast) => {
   const weatherForTheDay = document.querySelectorAll(".weather-for-the-day");
   weatherForTheDay.forEach((day, index) => {
@@ -69,6 +78,11 @@ const fiveDayForecast = async (dailyForecast) => {
   });
 };
 
+/**
+ *
+ * @param {object} hourlyForecast
+ * @param {object} airPollution
+ */
 const todayDetails = async (hourlyForecast, airPollution) => {
   document.querySelector("#today-details ul").innerHTML = `
       <li><img src="images/humidity.svg" alt=""> Humidity:  ${
@@ -101,6 +115,10 @@ const todayDetails = async (hourlyForecast, airPollution) => {
 };
 
 // Display the current weather data on the page for all sections.
+/**
+ *
+ * @param {object} weatherData
+ */
 const displayWeather = async (weatherData) => {
   try {
     document.querySelector("main").style.display = "none";

@@ -5,6 +5,12 @@ import {
 } from "./const.js";
 
 // Use Google Maps Geocoding API to get the city name based on the user's coordinates, since OpenWeather is not highly precise.
+/**
+ *
+ * @param {number} latitude
+ * @param {number} longitude
+ * @returns
+ */
 const reverseGeocode = async (latitude, longitude) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`;
 
@@ -29,6 +35,11 @@ const reverseGeocode = async (latitude, longitude) => {
   return city;
 };
 
+/**
+ *
+ * @param {string} city
+ * @returns
+ */
 const getCityCoordinates = async (city) => {
   const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${OPENWEATHER_API_KEY}`;
   const response = await fetch(url)
@@ -41,6 +52,11 @@ const getCityCoordinates = async (city) => {
 };
 
 // Use OpenWeatherMap API to retrieve the weather data for a given city and country code.
+/**
+ *
+ * @param {string} city
+ * @returns
+ */
 const getWeather = async (city) => {
   const coords = await getCityCoordinates(city);
 

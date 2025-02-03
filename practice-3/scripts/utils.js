@@ -1,13 +1,28 @@
+/**
+ * @param {string} s
+ */
 const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
+/**
+ * 
+ * @param {number} sunrise 
+ * @param {number} sunset 
+ * @returns 
+ */
 const dayOrNight = (sunrise, sunset) => {
   const now = new Date().getTime() / 1000;
   return now >= sunrise && now < sunset;
 };
 
 // Display an accurate weather icon.
+/**
+ * 
+ * @param {number} code 
+ * @param {boolean} daytime 
+ * @returns 
+ */
 const chooseImage = (code, daytime) => {
   let image;
 
@@ -29,16 +44,32 @@ const chooseImage = (code, daytime) => {
   return imageTag;
 };
 
+/**
+ * 
+ * @param {number} mps 
+ * @returns 
+ */
 const convertMpsToKmph = (mps) => {
   return (mps * 3.6).toFixed(0);
 };
 
 // Convert the Air Quality Index to a more verbose description.
+/**
+ * 
+ * @param {number} aqi 
+ * @returns 
+ */
 const convertAQI = (aqi) => {
   const descArr = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
   return descArr[aqi - 1];
 };
 
+/**
+ * 
+ * @param {number} time 
+ * @param {number} timezone 
+ * @returns 
+ */
 const convertToLocalTime = (time, timezone) => {
   return new Date((time + timezone) * 1000).toLocaleTimeString("en-US", {
     timeZone: "UTC",
