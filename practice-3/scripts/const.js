@@ -7,11 +7,13 @@ class WeatherData {
    * @param {object} hourlyForecast
    * @param {object} dailyForecast
    * @param {object} airPollution
+   * @param {object} currentWeather
    */
-  constructor(hourlyForecast, dailyForecast, airPollution) {
+  constructor(hourlyForecast, dailyForecast, airPollution, currentWeather) {
     this.hourlyForecast = hourlyForecast;
     this.dailyForecast = dailyForecast;
     this.airPollution = airPollution;
+    this.currentWeather = currentWeather;
   }
 }
 

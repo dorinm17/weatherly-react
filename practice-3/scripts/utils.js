@@ -30,7 +30,7 @@ const chooseImage = (code, daytime) => {
   else if (code >= 300 && code < 600) image = "rain";
   else if (code >= 600 && code <= 613) image = "snow";
   else if (code >= 615 && code < 700) image = "rain-and-snow";
-  else if ([701, 721, 741, 771].includes(code)) image = "mist";
+  else if ([701, 721, 741, 771].includes(code)) image = "wind";
   else if (code === 781) image = "tornado";
   else if (code >= 700 && code < 800) image = "smoke";
   else if (code === 800) image = daytime ? "sun" : "moon";
@@ -79,4 +79,13 @@ const convertToLocalTime = (time, timezone) => {
   });
 };
 
-export { capitalize, dayOrNight, chooseImage, convertMpsToKmph, convertAQI, convertToLocalTime };
+// Check if the temperature is zero and return 0 instead of -0.
+/**
+ * @param {number} temp
+ */
+const checkIfZeroTemp = (temp) => {
+  const roundedTemp = temp.toFixed(0);
+  return roundedTemp === "-0" ? 0 : roundedTemp;
+}
+
+export { capitalize, dayOrNight, chooseImage, convertMpsToKmph, convertAQI, convertToLocalTime, checkIfZeroTemp };

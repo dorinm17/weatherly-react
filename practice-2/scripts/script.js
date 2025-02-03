@@ -31,7 +31,7 @@ if (
       } else console.log("Geolocation is not supported by this browser.");
       // Now that we have the actual current location, fetch the weather
       const weatherData = await getWeather(city);
-      sessionStorage.setItem("currentWeather", JSON.stringify(weatherData));
+      sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
       displayWeather(weatherData);
     } catch (error) {
       if (error instanceof GeolocationPositionError || error.code === 1) {
@@ -53,6 +53,6 @@ document.querySelector("form").addEventListener("submit", async (event) => {
   document.querySelector("#city").value = "";
 
   const weatherData = await getWeather(city);
-  sessionStorage.setItem("currentWeather", JSON.stringify(weatherData));
+  sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
   displayWeather(weatherData);
 });

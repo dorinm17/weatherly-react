@@ -64,13 +64,14 @@ const getWeather = async (city) => {
     `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&cnt=10&&appid=${OPENWEATHER_API_KEY}&units=metric`,
     `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=5&appid=${OPENWEATHER_API_KEY}&units=metric`,
     `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coords.lat}&lon=${coords.lon}&appid=${OPENWEATHER_API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric`,
   ];
 
   const weatherData = Promise.all(
     urls.map((url) => fetch(url).then((response) => response.json()))
   )
     .then((data) => {
-      return new WeatherData(data[0], data[1], data[2]);
+      return new WeatherData(data[0], data[1], data[2], data[3]);
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);

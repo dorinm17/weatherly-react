@@ -5,27 +5,28 @@ import {
   convertMpsToKmph,
   convertAQI,
   convertToLocalTime,
+  checkIfZeroTemp,
 } from "./utils.js";
 
-const todayForecast = async (dailyForecast, hourlyForecast) => {
+const todayForecast = async (dailyForecast, hourlyForecast, currentWeather) => {
   const rightNowDiv = document.querySelector("#right-now");
   rightNowDiv.innerHTML = `
       <div>
           <h3>${hourlyForecast.city.name}<span id="country-code"> ${
     hourlyForecast.city.country
-  }</span> ${hourlyForecast.list[0].main.temp.toFixed(0)}&deg;C</h3>
-          <p>${capitalize(hourlyForecast.list[0].weather[0].description)}</p>
+  }</span> ${checkIfZeroTemp(currentWeather.main.temp)}&deg;C</h3>
+          <p>${capitalize(currentWeather.weather[0].description)}</p>
           <p>Precipitation: ${dailyForecast.list[0].pop * 100}%</p>
-          <p>H:${dailyForecast.list[0].temp.max.toFixed(
-            0
-          )}&deg; L:${dailyForecast.list[0].temp.min.toFixed(0)}&deg;</p>
+          <p>H:${checkIfZeroTemp(
+            dailyForecast.list[0].temp.max
+          )}&deg; L:${checkIfZeroTemp(dailyForecast.list[0].temp.min)}&deg;</p>
       </div>
       `;
   let daytime = dayOrNight(
     hourlyForecast.city.sunrise,
     hourlyForecast.city.sunset
   );
-  let imageTag = chooseImage(hourlyForecast.list[1].weather[0].id, daytime);
+  let imageTag = chooseImage(currentWeather.weather[0].id, daytime);
   rightNowDiv.append(imageTag);
 
   document.querySelectorAll("#hourly-forecast div").forEach((div, index) => {
@@ -35,7 +36,7 @@ const todayForecast = async (dailyForecast, hourlyForecast) => {
 
     imageTag = chooseImage(hour.weather[0].id, daytime);
     const pTemp = document.createElement("p");
-    pTemp.innerHTML = `${hour.main.temp.toFixed(0)}&deg; C`;
+    pTemp.innerHTML = `${checkIfZeroTemp(hour.main.temp)}&deg; C`;
     div.append(imageTag, pTemp);
   });
 };
@@ -60,47 +61,46 @@ const fiveDayForecast = async (dailyForecast) => {
     const weather = dailyForecast.list[index];
     day.innerHTML = `
       <p>${capitalize(weather.weather[0].description)}</p>
-       <p><span class="temperature">${weather.temp.max.toFixed(
-         0
-       )}&deg;</span> / ${weather.temp.min.toFixed(
-      0
+       <p><span class="temperature">${checkIfZeroTemp(
+         weather.temp.max
+       )}&deg;</span> / ${checkIfZeroTemp(
+      weather.temp.min
     )}&deg; <span class="temperature">C</span</p>
       `;
   });
 };
 
-const todayDetails = async (hourlyForecast, airPollution) => {
+const todayDetails = async (hourlyForecast, currentWeather, airPollution) => {
   document.querySelector("#today-details ul").innerHTML = `
       <li><img src="images/humidity.svg" alt=""> Humidity:  ${
-        hourlyForecast.list[0].main.humidity
+        currentWeather.main.humidity
       }%</li>
-      <li><img src="images/temperature.svg" alt="">Feels like:  ${hourlyForecast.list[0].main.feels_like.toFixed(
-        0
+      <li><img src="images/temperature.svg" alt="">Feels like:  ${checkIfZeroTemp(
+        currentWeather.main.feels_like
       )}&deg;C</li>
       <li><img src="images/sunrise.svg" alt="">Rise:  ${convertToLocalTime(
-        hourlyForecast.city.sunrise,
-        hourlyForecast.city.timezone
+        currentWeather.sys.sunrise,
+        currentWeather.timezone
       )}</li>
       <li><img src="images/wind.svg" alt="">Wind:  ${convertMpsToKmph(
-        hourlyForecast.list[0].wind.speed
+        currentWeather.wind.speed
       )}km/h</li>
       <li><img src="images/air-quality.svg" alt="">Air quality:  ${convertAQI(
         airPollution.list[0].main.aqi
       )}</li>
       <li><img src="images/sunset.svg" alt="">Set:  ${convertToLocalTime(
-        hourlyForecast.city.sunset,
-        hourlyForecast.city.timezone
+        currentWeather.sys.sunset,
+        currentWeather.timezone
       )}</li>
       <li><img src="images/gusts.svg" alt="">Gusts:  ${convertMpsToKmph(
         hourlyForecast.list[0].wind.gust
       )}km/h </li>
       <li><img src="images/uv-index.svg" alt="">Cloudiness:  ${
-        hourlyForecast.list[0].clouds.all
+        currentWeather.clouds.all
       }%</li>
       `;
 };
 
-// Display the current weather data on the page for all sections.
 const displayWeather = async (weatherData) => {
   try {
     document.querySelector("main").style.display = "none";
@@ -108,10 +108,11 @@ const displayWeather = async (weatherData) => {
     const dailyForecast = weatherData.dailyForecast;
     const hourlyForecast = weatherData.hourlyForecast;
     const airPollution = weatherData.airPollution;
+    const currentWeather = weatherData.currentWeather;
 
-    await todayForecast(dailyForecast, hourlyForecast);
+    await todayForecast(dailyForecast, hourlyForecast, currentWeather);
     await fiveDayForecast(dailyForecast);
-    await todayDetails(hourlyForecast, airPollution);
+    await todayDetails(hourlyForecast, currentWeather, airPollution);
   } catch (error) {
     console.error("Error displaying complete weather info:", error);
   } finally {
