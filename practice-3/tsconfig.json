@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "allowJs": true, // Allow JavaScript files to be compiled
-    "checkJs": true, // Enable type checking in JavaScript files
+    // "allowJs": true,
+    // "checkJs": true,
+    // "noEmit": true,
     "outDir": "build", // Separate output directory
     "target": "esnext", // Latest version of ECMAScript
-    "noEmit": true, // Do not emit output files
     "module": "CommonJS", // The type of module system that Node.js uses
+    "esModuleInterop": true, // Emit additional JS to ease support for importing CommonJS modules
+    "strict": true, // Enable all strict type-checking options
+    "experimentalDecorators": true, // Enable support for TypeScript decorators
+    "emitDecoratorMetadata": true, // Emit design-type metadata for decorated declarations in source files
+    "resolveJsonModule": true, // Include modules imported with .json extension
   },
   "include": ["src/**/*"] // Include all TS files in the scripts directory
 }
