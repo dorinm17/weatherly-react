@@ -4,7 +4,8 @@
     "checkJs": true, // Enable type checking in JavaScript files
     "outDir": "build", // Separate output directory
     "target": "esnext", // Latest version of ECMAScript
-    "noEmit": true // Do not emit output files
+    "noEmit": true, // Do not emit output files
+    "module": "CommonJS", // The type of module system that Node.js uses
   },
-  "include": ["scripts/**/*"] // Include all TS files in the scripts directory
+  "include": ["src/**/*"] // Include all TS files in the scripts directory
 }
