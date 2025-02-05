@@ -23,7 +23,7 @@ const reverseGeocode = async (latitude, longitude) => {
     })
     .catch((error) => {
       console.error("Error getting city name:", error);
-      return sessionStorage.getItem("city");
+      return sessionStorage.getItem("currentCity");
     });
 
   return city;

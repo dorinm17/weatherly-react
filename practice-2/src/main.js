@@ -48,11 +48,11 @@ document.querySelector("form").addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const city = document.querySelector("#city").value;
-  sessionStorage.setItem("city", city);
-  sessionStorage.setItem("userInput", true);
   document.querySelector("#city").value = "";
 
   const weatherData = await getWeather(city);
   sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
+  sessionStorage.setItem("currentCity", city);
+  sessionStorage.setItem("userInput", true);
   displayWeather(weatherData);
 });
