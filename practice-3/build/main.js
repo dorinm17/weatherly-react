@@ -52,7 +52,7 @@ if (formElement) {
             cityInput.value = "";
             try {
                 const weatherData = await getWeather(city);
-                sessionStorage.setItem("currentCity", city);
+                sessionStorage.setItem(sessionKeys.currentCity, city);
                 sessionStorage.setItem(sessionKeys.userInput, booleanStr.true);
                 sessionStorage.setItem(sessionKeys.weatherData, JSON.stringify(weatherData));
                 displayWeather(weatherData);

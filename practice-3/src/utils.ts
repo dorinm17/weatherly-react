@@ -1,4 +1,4 @@
-import { AQI, AQIVerbose } from "./const.js";
+import { AQI, AQIVerbose } from "./types.js";
 
 // Decorator to check if the `number` type arguments for most of the methods are positive.
 const isPositive = (paramIndexes?: number[]): MethodDecorator => {

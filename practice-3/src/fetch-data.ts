@@ -1,14 +1,16 @@
 import {
   GOOGLE_MAPS_API_KEY,
   OPENWEATHER_API_KEY,
-  WeatherData,
-  CityCoordinates,
-  HourlyForecast,
-  DailyForecast,
-  AirPollutionFailproof,
-  CurrentWeather,
   sessionKeys,
 } from "./const.js";
+import {
+  AirPollutionFailproof,
+  CityCoordinates,
+  CurrentWeather,
+  DailyForecast,
+  HourlyForecast,
+  WeatherData,
+} from "./types.js";
 
 // Use Google Maps Geocoding API to get the city name based on the user's coordinates, since OpenWeather is not highly precise.
 const reverseGeocode = async (

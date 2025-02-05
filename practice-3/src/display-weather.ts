@@ -8,13 +8,12 @@ import {
   checkIfZeroTemp,
 } from "./utils.js";
 import {
-  WeatherData,
-  HourlyForecast,
-  DailyForecast,
   AirPollutionFailproof,
   CurrentWeather,
-  sessionKeys,
-} from "./const.js";
+  DailyForecast,
+  HourlyForecast,
+  WeatherData,
+} from "./types.js";
 
 const todayForecast = async (
   dailyForecast: DailyForecast,

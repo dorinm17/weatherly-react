@@ -1,6 +1,7 @@
 import { getWeather, reverseGeocode } from "./fetch-data.js";
 import { displayWeather } from "./display-weather.js";
-import { sessionKeys, defaultCity, booleanStr, WeatherData } from "./const.js";
+import { sessionKeys, defaultCity, booleanStr } from "./const.js";
+import { WeatherData } from "./types.js";
 
 const copyYearElement: HTMLSpanElement | null =
   document.querySelector("#copyYear");
