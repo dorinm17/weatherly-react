@@ -2,8 +2,7 @@ function Footer() {
   return (
     <footer>
       <p>
-        &copy; <span id="copyYear">2024</span> Weatherly, LLC. All rights
-        reserved.
+        &copy; {new Date().getFullYear()} Weatherly, LLC. All rights reserved.
       </p>
       <ul>
         <li>
