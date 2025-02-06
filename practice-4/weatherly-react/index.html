@@ -7,44 +7,14 @@
         <meta name="keywords" content="weather, weather updates, real-time weather, live weather, weather forecast, 5 day forecast, hourly forecast, weather app, temperature, precipitation, humidity, UV index, air quality">
         <meta name="author" content="Dorin Manea">
         <title>Weatherly | Simple, Beautiful Weather Updates</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="src/index.css">
         <!-- Polyfill for handling promises on older browsers -->
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js" defer></script>
         <!-- Modules are deferred by default -->
-        <script type="module" src="build/const.js"></script>
-        <script type="module" src="build/utils.js"></script>
-        <script type="module" src="build/fetch-data.js"></script>
-        <script type="module" src="build/display-weather.js"></script>
-        <script type="module" src="build/main.js"></script>
+        <script type="module" src="src/main.tsx"></script>
     </head>
 
     <body>
-        <header>
-            <div>
-                <!-- Logo -->
-                <h1>Weatherly</h1>
-                <!-- Motto -->
-                <h2>Don't be under the weather<span id="exclamation-mark">!</span></h2>
-            </div>
-
-            <img id="banner" src="images/weather-transition.jpeg" alt="">
-
-            <!-- Search Box -->
-            <nav>
-                <form action="" method="get" autocomplete="off">
-                    <button type="submit" aria-label="Submit your search">
-                        <img src="images/search.svg" alt="search">
-                    </button>
-                    <input type="text" id="city" name="city" placeholder="Search for your city" aria-label="Search for your city">
-                </form>
-            </nav>
-        </header>
-
-        <!-- Loading Spinner -->
-        <div id="loading-spinner">
-            <div class="spinner-circle"></div>
-        </div>
-
         <main>
             <section id="five-day-forecast">
                 <div class="day">
@@ -190,17 +160,5 @@
                 </ul>
             </section>
         </main>
-        
-        <footer>
-            <!-- Copyright -->
-            <p>&copy; <span id="copyYear">2024</span> Weatherly, LLC. All rights reserved.</p>
-            <!-- Social Media -->
-            <ul>
-                <li><a href="https://www.linkedin.com/in/dorin-manea/"><img src="images/linkedin.svg" alt="LinkedIn"></a></li>
-                <li><a href="https://www.instagram.com/dorinm17/"><img src="images/instagram.svg" alt="Instagram"></a></li>
-                <li><a href="https://www.facebook.com/dorinm17/"><img src="images/facebook.svg" alt="Facebook"></a></li>
-                <li><a href="mailto:dmanea@adobe.com"><img src="images/mail.svg" alt="Mail"></a></li>
-            </ul>
-        </footer>
     </body>
 </html>
