@@ -1,0 +1,34 @@
+.searchForm {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  height: 5.5rem;
+}
+.searchInput {
+  all: unset; /* override the user-agent styles */
+  color: var(--normal-font);
+  font-size: 1.8rem;
+
+  text-align: center;
+
+  letter-spacing: 0.076rem;
+}
+.searchButton,
+.searchInput {
+  padding: 0;
+
+  border: 0;
+  background-color: var(--nav-color);
+}
+.searchButton:hover {
+  cursor: pointer;
+
+  opacity: 0.6;
+}
+.searchInput::placeholder {
+  font-weight: 200;
+  font-style: italic;
+  color: var(--normal-font);
+}
+.searchInput:focus::placeholder {
+  color: transparent;
+}

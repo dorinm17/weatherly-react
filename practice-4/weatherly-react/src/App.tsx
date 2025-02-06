@@ -1,6 +1,6 @@
-import Header from "./Header";
-import LoadingSpinner from "./LoadingSpinner";
-import Footer from "./Footer";
+import Header from "./components/Header/Header";
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
