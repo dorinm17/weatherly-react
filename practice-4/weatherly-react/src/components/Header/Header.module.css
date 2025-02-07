@@ -46,6 +46,9 @@
   height: 25rem;
   object-fit: cover;
 }
+/* -------------------
+    Media Queries
+------------------- */
 @media (max-width: 1200px) {
   .titleDiv {
     margin-left: 15rem;

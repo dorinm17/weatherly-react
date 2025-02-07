@@ -1,0 +1,40 @@
+#todayForecast {
+  display: grid;
+  grid-template-rows: 1fr 1.6fr;
+  gap: 0.5rem;
+  padding-block: 1.5rem;
+
+  background: linear-gradient(
+    var(--section-and-footer-color),
+    var(--section-bg-color) 90%
+  );
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 1330px) and (min-width: 1201px) {
+  #today-forecast {
+    padding-block: 0 2.5rem;
+  }
+}
+@media (max-width: 1200px) {
+  #today-forecast {
+    grid-row: 1 / 2;
+
+    background: linear-gradient(
+      var(--section-and-footer-color),
+      var(--section-bg-color)
+    );
+  }
+}
+@media (max-width: 670px) {
+  #today-forecast {
+    grid-template-rows: auto auto;
+    gap: 1rem;
+
+    background: linear-gradient(
+      var(--section-and-footer-color),
+      var(--section-bg-color) 120%
+    );
+  }
+}

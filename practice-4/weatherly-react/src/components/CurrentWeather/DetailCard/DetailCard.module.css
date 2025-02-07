@@ -1,0 +1,18 @@
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 1.9rem;
+}
+.detailIcon {
+  width: 3.2rem;
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 550px) {
+  .detail {
+    font-size: 1.6rem;
+  }
+}

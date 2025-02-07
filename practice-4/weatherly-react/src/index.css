@@ -69,60 +69,8 @@ section {
   box-shadow: 0 0 5rem rgb(27 38 59 / 0.6);
 }
 /* -------------------
-    Five Day Forecast
-------------------- */
-#five-day-forecast {
-  grid-row: 1 / 3;
-  display: grid;
-  background: linear-gradient(
-    var(--section-and-footer-color),
-    var(--section-bg-color) 50%
-  );
-}
-.day {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  padding: 2rem 5rem;
-  gap: 2rem;
-
-  border-bottom: 1px solid var(--accent-color);
-}
-.weather-for-the-day,
-.weather-condition {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.weather-condition p:first-of-type,
-.temperature {
-  font-weight: 600;
-}
-.weather-condition p:first-of-type {
-  letter-spacing: 0.032rem;
-}
-.day:last-child {
-  border-bottom: 0;
-}
-.weather-for-the-day img {
-  width: 7.8rem;
-}
-.weather-condition p:last-of-type {
-  font-size: 3rem;
-}
-/* -------------------
     Today's Weather
 ------------------- */
-#today-forecast {
-  display: grid;
-  grid-template-rows: 1fr 1.6fr;
-  gap: 0.5rem;
-  padding-block: 1.5rem;
-
-  background: linear-gradient(
-    var(--section-and-footer-color),
-    var(--section-bg-color) 90%
-  );
-}
 #right-now {
   display: flex;
   justify-content: center;
@@ -169,125 +117,15 @@ h3,
   border-right: 0;
 }
 /* -------------------
-    Weather Details
-------------------- */
-#today-details {
-  /* Trick to make the unordered list take up the whole height */
-  display: grid;
-
-  background: linear-gradient(
-    var(--last-section-bg-color),
-    var(--section-bg-color) 30%
-  );
-}
-#today-details ul {
-  margin: 1rem 2rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 2rem;
-
-  list-style-type: none;
-}
-#today-details li {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  font-size: 1.9rem;
-}
-#today-details img {
-  width: 3.2rem;
-}
-/* -------------------
     Media Queries
 ------------------- */
-@media (max-width: 1750px) and (min-width: 1201px) {
-  .day {
-    grid-template-columns: 1.5fr 1fr;
-    gap: 5rem;
-  }
-  .weather-condition {
-    flex-direction: column;
-  }
-  .weather-condition p {
-    margin: 0;
-  }
-}
-@media (max-width: 1330px) and (min-width: 1201px) {
-  .day {
-    grid-template-columns: 1fr 1fr;
-    padding-inline: 0;
-    gap: 0;
-  }
-  .day:first-of-type {
-    padding-top: 1.5rem;
-  }
-  .weather-for-the-day {
-    flex-direction: column;
-  }
-  .weather-condition {
-    justify-content: space-around;
-  }
-  #today-forecast {
-    padding-block: 0 2.5rem;
-  }
-}
 @media (max-width: 1200px) {
   main {
     grid-template-columns: 100%;
     grid-template-rows: repeat(3, auto);
   }
-  #today-forecast {
-    grid-row: 1 / 2;
-
-    background: linear-gradient(
-      var(--section-and-footer-color),
-      var(--section-bg-color)
-    );
-  }
-  #today-details {
-    grid-row: 2 / 3;
-
-    background: linear-gradient(
-      var(--section-and-footer-color),
-      var(--section-bg-color) 80%
-    );
-  }
-  #today-details ul {
-    gap: 2.5rem;
-    margin-block: 3.5rem;
-  }
-  #five-day-forecast {
-    grid-row: 3 / 4;
-
-    background: linear-gradient(
-      var(--section-and-footer-color),
-      var(--section-bg-color) 40%
-    );
-  }
 }
 @media (max-width: 670px) {
-  .day {
-    grid-template-columns: 1.5fr 1fr;
-    gap: 5rem;
-  }
-  .weather-condition {
-    flex-direction: column;
-  }
-  .weather-condition p {
-    margin: 0;
-  }
-  #today-forecast {
-    grid-template-rows: auto auto;
-    gap: 1rem;
-
-    background: linear-gradient(
-      var(--section-and-footer-color),
-      var(--section-bg-color) 120%
-    );
-  }
   #hourly-forecast {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 1fr);
@@ -306,47 +144,10 @@ h3,
 
     border-bottom: 0;
   }
-  #five-day-forecast {
-    grid-row: 3 / 4;
-
-    background: linear-gradient(
-      var(--section-and-footer-color),
-      var(--section-bg-color) 13%
-    );
-  }
-}
-@media (max-width: 550px) {
-  .day {
-    grid-template-columns: 1fr 1fr;
-    padding-inline: 0;
-    gap: 0;
-  }
-  .day:first-of-type {
-    padding-top: 1.5rem;
-  }
-  .weather-for-the-day {
-    flex-direction: column;
-  }
-  .weather-condition {
-    justify-content: space-around;
-  }
-  #today-details ul {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, fr);
-    grid-column-gap: 1.2rem;
-    margin-inline: 0.5rem;
-  }
-  #today-details li {
-    font-size: 1.6rem;
-  }
 }
 @media (max-width: 380px) {
-  .weather-for-the-day img,
   #hourly-forecast img {
     width: 6rem;
-  }
-  .weather-condition p:last-of-type {
-    font-size: 2.5rem;
   }
   h3 {
     font-size: 2rem;
