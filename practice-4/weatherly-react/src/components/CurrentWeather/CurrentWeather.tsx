@@ -1,51 +1,53 @@
 import styles from "./CurrentWeather.module.css";
 import DetailCard from "./DetailCard/DetailCard";
+import humidity from "/src/assets/humidity.svg";
+import temperature from "/src/assets/temperature.svg";
+import sunrise from "/src/assets/sunrise.svg";
+import wind from "/src/assets/wind.svg";
+import airQuality from "/src/assets/air-quality.svg";
+import sunset from "/src/assets/sunset.svg";
+import gusts from "/src/assets/gusts.svg";
+import cloudiness from "/src/assets/uv-index.svg";
+
+type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 
 function CurrentWeather() {
   return (
     <section className={styles.currentWeather}>
       <ul className={styles.detailsList}>
         <DetailCard
-          icon="/src/assets/humidity.svg"
+          icon={humidity as Image}
           label="Humidity"
           unitValue={73}
           unit="%"
         />
         <DetailCard
-          icon="/src/assets/temperature.svg"
+          icon={temperature as Image}
           label="Feels like"
           unitValue={5}
           unit="&deg;C"
         />
+        <DetailCard icon={sunrise as Image} label="Rise" hourValue="08:44" />
         <DetailCard
-          icon="/src/assets/sunrise.svg"
-          label="Rise"
-          hourValue="08:44"
-        />
-        <DetailCard
-          icon="/src/assets/wind.svg"
+          icon={wind as Image}
           label="Wind"
           unitValue={6}
           unit="km/h"
         />
         <DetailCard
-          icon="/src/assets/air-quality.svg"
+          icon={airQuality as Image}
           label="Air quality"
           strValue="Poor"
         />
+        <DetailCard icon={sunset as Image} label="Set" hourValue="17:01" />
         <DetailCard
-          icon="/src/assets/sunset.svg"
-          label="Set"
-          hourValue="17:01"
-        />
-        <DetailCard
-          icon="/src/assets/gusts.svg"
+          icon={gusts as Image}
           label="Gusts"
           unitValue={12}
           unit="km/h"
         />
         <DetailCard
-          icon="/src/assets/uv-index.svg"
+          icon={cloudiness as Image}
           label="Cloudiness"
           unitValue={0}
           unit="%"

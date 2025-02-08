@@ -56,7 +56,8 @@ body {
         Main
 ------------------- */
 main {
-  display: none; /* Hide the main content by default in case OpenWeatherMap API fails */
+  /* display: none; /* Hide the main content by default in case OpenWeatherMap API fails */
+  display: grid;
   grid-template-columns: 1fr 1.3fr;
   grid-template-rows: 1.3fr 1fr;
   gap: 5rem;
@@ -69,91 +70,12 @@ section {
   box-shadow: 0 0 5rem rgb(27 38 59 / 0.6);
 }
 /* -------------------
-    Today's Weather
-------------------- */
-#right-now {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-h3 {
-  font-size: 2.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
-}
-h3,
-#right-now p {
-  margin: 0;
-}
-#country-code,
-#right-now p:first-of-type {
-  font-size: 1.8rem;
-  font-weight: 600;
-  letter-spacing: 0.05rem;
-}
-#right-now img {
-  width: 11rem;
-}
-#hourly-forecast img {
-  width: 7rem;
-}
-#hourly-forecast {
-  display: grid;
-  grid-template-columns: repeat(6, 16.6%);
-  grid-auto-columns: 16.6%;
-  grid-auto-flow: column;
-  overflow: auto;
-  scrollbar-color: var(--accent-color) transparent;
-}
-#hourly-forecast div {
-  display: grid;
-  justify-items: center;
-  padding-inline: 1rem;
-
-  border-right: 1px solid var(--accent-color);
-}
-#hourly-forecast div:last-child {
-  border-right: 0;
-}
-/* -------------------
     Media Queries
 ------------------- */
 @media (max-width: 1200px) {
   main {
     grid-template-columns: 100%;
     grid-template-rows: repeat(3, auto);
-  }
-}
-@media (max-width: 670px) {
-  #hourly-forecast {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
-    grid-auto-flow: row;
-  }
-  #hourly-forecast div {
-    grid-template-columns: repeat(3, auto);
-    align-items: center;
-    padding-block: 1rem;
-
-    border-right: 0;
-    border-bottom: 1px solid var(--accent-color);
-  }
-  #hourly-forecast div:last-child {
-    padding-bottom: 0;
-
-    border-bottom: 0;
-  }
-}
-@media (max-width: 380px) {
-  #hourly-forecast img {
-    width: 6rem;
-  }
-  h3 {
-    font-size: 2rem;
-  }
-  #right-now img {
-    width: 9rem;
   }
 }
 @media (max-width: 345px) {

@@ -1,13 +1,14 @@
 import styles from "./DetailCard.module.css";
 
-type TimeStr = `${number}:${number}`;
+type Time = `${number}:${number}`;
+type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 interface DetailCardProps {
-  icon: string;
+  icon: Image;
   label: string;
   unitValue?: number;
   unit?: string;
   strValue?: string;
-  hourValue?: TimeStr;
+  hourValue?: Time;
 }
 
 function DetailCard(props: DetailCardProps) {
