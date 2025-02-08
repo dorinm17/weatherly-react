@@ -20,7 +20,7 @@ function TodayForecast() {
         icon={sunAndClouds as Image}
       />
 
-      <div className="hourlyForecast">
+      <div className={styles.hourlyForecast}>
         <HourlyForecastCard
           time="16:00"
           icon={sunAndClouds as Image}
