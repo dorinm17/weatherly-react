@@ -13,7 +13,7 @@ function HourlyForecastCard(props: HourlyForecastCardProps) {
     <div className={styles.div}>
       <p>{props.time}</p>
       <img className={styles.icon} src={props.icon} alt="" />
-      <p>{props.temperature}&deg; C</p>
+      <p>{props.temperature}&deg;C</p>
     </div>
   );
 }

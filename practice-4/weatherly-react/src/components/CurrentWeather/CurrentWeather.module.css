@@ -7,16 +7,6 @@
     var(--section-bg-color) 30%
   );
 }
-.detailsList {
-  margin: 1rem 2rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 2rem;
-
-  list-style-type: none;
-}
 /* -------------------
     Media Queries
 ------------------- */
@@ -28,17 +18,5 @@
       var(--section-and-footer-color),
       var(--section-bg-color) 80%
     );
-  }
-  .detailsList {
-    gap: 2.5rem;
-    margin-block: 3.5rem;
-  }
-}
-@media (max-width: 550px) {
-  .detailsList {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, fr);
-    grid-column-gap: 1.2rem;
-    margin-inline: 0.5rem;
   }
 }
