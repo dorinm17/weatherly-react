@@ -12,7 +12,7 @@ enum SocialMediaLinks {
   facebook = "https://www.facebook.com/dorinm17/",
   mail = "mailto:dmanea@adobe.com",
 }
-interface SocialMediaProps {
+export interface SocialMediaProps {
   icon: Image;
   alt: string;
   link: string;

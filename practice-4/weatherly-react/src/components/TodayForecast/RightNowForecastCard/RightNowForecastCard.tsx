@@ -29,7 +29,7 @@ function RightNowForecastCard(props: RightNowForecastCardProps) {
         </p>
       </div>
 
-      <img className="rightNowIcon" src={props.icon} alt="" />
+      <img className={styles.rightNowIcon} src={props.icon} alt="" />
     </div>
   );
 }

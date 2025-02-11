@@ -11,7 +11,7 @@ import cloudiness from "/src/assets/uv-index.svg";
 
 type Time = `${number}:${number}`;
 type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
-interface WeatherDetailProps {
+export interface WeatherDetailProps {
   icon: Image;
   label: string;
   unitValue?: number;
@@ -66,7 +66,7 @@ function CurrentWeather() {
       label: "Cloudiness",
       unitValue: 0,
       unit: "%",
-    }
+    },
   ];
 
   return (
