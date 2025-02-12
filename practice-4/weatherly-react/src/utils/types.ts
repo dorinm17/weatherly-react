@@ -55,7 +55,7 @@ interface DailyData {
 
 // Reusable interfaces
 type HourlyForecast = Forecast<HourlyData>;
-type DailyForecast = Forecast<DailyData>;
+type FiveDayForecast = Forecast<DailyData>;
 
 type AQI = 1 | 2 | 3 | 4 | 5;
 type AQIVerbose = "Good" | "Fair" | "Moderate" | "Poor" | "Very Poor";
@@ -97,25 +97,35 @@ interface CurrentForecast {
 
 interface WeatherData {
   hourlyForecast: HourlyForecast;
-  dailyForecast: DailyForecast;
+  dailyForecast: FiveDayForecast;
   airPollution: AirPollutionFailproof;
   currentWeather: CurrentForecast;
 }
 
 type Time = `${number}:${number}`;
 type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
+type Weekday =
+  | "Today"
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
 
 export type {
   WeatherData,
   CityCoordinates,
   HourlyForecast,
-  DailyForecast,
+  FiveDayForecast,
   AQI,
   AQIVerbose,
   AirPollutionFailproof,
   CurrentForecast,
   Time,
   Image,
+  Weekday,
 };
 
 interface WeatherContextType {

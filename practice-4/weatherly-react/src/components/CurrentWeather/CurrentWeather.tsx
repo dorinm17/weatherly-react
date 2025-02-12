@@ -18,7 +18,7 @@ import {
   Time,
   Image,
 } from "../../utils/types";
-import { convertToLocalTime, convertAQI } from "../../utils/helpers";
+import { convertToLocalTime, convertAQI, checkIfZeroTemp } from "../../utils/helpers";
 
 export interface WeatherDetailProps {
   icon: Image;
@@ -46,7 +46,7 @@ function CurrentWeather() {
     {
       icon: temperature as Image,
       label: "Feels like",
-      unitValue: parseFloat(currentWeather.main.feels_like.toFixed(0)),
+      unitValue: checkIfZeroTemp(currentWeather.main.feels_like),
       unit: "°C",
     },
     {

@@ -3,7 +3,7 @@ import {
   AirPollutionFailproof,
   CityCoordinates,
   CurrentForecast,
-  DailyForecast,
+  FiveDayForecast,
   HourlyForecast,
   WeatherData,
 } from "./types";
@@ -90,7 +90,7 @@ const getWeather = async (city: string): Promise<WeatherData> => {
     // Ensure each response is properly typed as per the WeatherData interface
     const weatherData: WeatherData = {
       hourlyForecast: responses[0] as HourlyForecast,
-      dailyForecast: responses[1] as DailyForecast,
+      dailyForecast: responses[1] as FiveDayForecast,
       airPollution: responses[2] as AirPollutionFailproof,
       currentWeather: responses[3] as CurrentForecast,
     };

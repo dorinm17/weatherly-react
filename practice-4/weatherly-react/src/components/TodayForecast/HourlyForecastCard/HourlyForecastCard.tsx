@@ -1,9 +1,8 @@
 import styles from "./HourlyForecastCard.module.css";
+import { Time, Image } from "../../../utils/types";
 
-type Hour = `${number}:00`;
-type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 interface HourlyForecastCardProps {
-  time: Hour;
+  time: Time;
   icon: Image;
   temperature: number;
 }

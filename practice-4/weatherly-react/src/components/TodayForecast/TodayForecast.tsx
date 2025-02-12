@@ -1,52 +1,61 @@
 import styles from "./TodayForecast.module.css";
 import RightNowForecastCard from "./RightNowForecastCard/RightNowForecastCard";
 import HourlyForecastCard from "./HourlyForecastCard/HourlyForecastCard";
-import sunAndClouds from "/src/assets/sun-and-clouds.svg";
-import moonAndClouds from "/src/assets/moon-and-clouds.svg";
-import moon from "/src/assets/moon.svg";
+import { useContext } from "react";
+import {
+  WeatherData,
+  FiveDayForecast,
+  CurrentForecast,
+  HourlyForecast,
+  WeatherContext,
+} from "../../utils/types";
+import {
+  checkIfZeroTemp,
+  capitalize,
+  dayOrNight,
+  chooseImage,
+  convertToLocalTime,
+} from "../../utils/helpers";
 
-type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 function TodayForecast() {
+  const data: WeatherData = useContext(WeatherContext)
+    ?.weatherData as WeatherData;
+  const dailyForecast: FiveDayForecast = data.dailyForecast;
+  const hourlyForecast: HourlyForecast = data.hourlyForecast;
+  const currentWeather: CurrentForecast = data.currentWeather;
+
+  const daytime: boolean = dayOrNight(
+    hourlyForecast.city.sunrise as number,
+    hourlyForecast.city.sunset as number
+  );
+
   return (
     <section className={styles.todayForecast}>
       <RightNowForecastCard
-        city="Paris"
-        countryCode="FR"
-        temperature={6}
-        description="Partly sunny"
-        precipitation={5}
-        maxTemp={6}
-        minTemp={-1}
-        icon={sunAndClouds as Image}
+        city={hourlyForecast.city.name as string}
+        countryCode={hourlyForecast.city.country as string}
+        temperature={checkIfZeroTemp(currentWeather.main.temp)}
+        description={capitalize(
+          currentWeather.weather[0].description as string
+        )}
+        precipitation={dailyForecast.list[0].pop * 100}
+        maxTemp={checkIfZeroTemp(dailyForecast.list[0].temp.max)}
+        minTemp={checkIfZeroTemp(dailyForecast.list[0].temp.min)}
+        icon={chooseImage(currentWeather.weather[0].id as number, daytime)}
       />
 
       <div className={styles.hourlyForecast}>
-        <HourlyForecastCard
-          time="16:00"
-          icon={sunAndClouds as Image}
-          temperature={6}
-        />
-        <HourlyForecastCard
-          time="17:00"
-          icon={sunAndClouds as Image}
-          temperature={6}
-        />
-        <HourlyForecastCard
-          time="18:00"
-          icon={moonAndClouds as Image}
-          temperature={6}
-        />
-        <HourlyForecastCard time="19:00" icon={moon as Image} temperature={5} />
-        <HourlyForecastCard time="20:00" icon={moon as Image} temperature={4} />
-        <HourlyForecastCard time="21:00" icon={moon as Image} temperature={4} />
-        <HourlyForecastCard time="22:00" icon={moon as Image} temperature={3} />
-        <HourlyForecastCard
-          time="23:00"
-          icon={moonAndClouds as Image}
-          temperature={2}
-        />
-        <HourlyForecastCard time="00:00" icon={moon as Image} temperature={1} />
-        <HourlyForecastCard time="01:00" icon={moon as Image} temperature={1} />
+        {hourlyForecast.list.slice(0, 10).map((hour, index) => (
+          <HourlyForecastCard
+            key={index}
+            time={convertToLocalTime(
+              hour.dt,
+              hourlyForecast.city.timezone as number
+            )}
+            icon={chooseImage(hour.weather[0].id as number, daytime)}
+            temperature={checkIfZeroTemp(hour.main.temp)}
+          />
+        ))}
       </div>
     </section>
   );

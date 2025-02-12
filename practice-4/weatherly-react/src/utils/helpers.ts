@@ -1,4 +1,4 @@
-import type { AQI, AQIVerbose, Time } from "./types";
+import type { AQI, AQIVerbose, Time, Weekday, Image } from "./types";
 
 // Decorator to check if the `number` type arguments for most of the methods are positive.
 const isPositive = (paramIndexes?: number[]): MethodDecorator => {
@@ -40,7 +40,7 @@ class Utils {
 
   // Display an accurate weather icon.
   @isPositive()
-  static chooseImage(code: number, daytime: boolean): HTMLImageElement {
+  static chooseImage(code: number, daytime: boolean): Image {
     let image: string = "";
 
     if (code >= 200 && code < 300) image = "thunderstorm";
@@ -56,13 +56,15 @@ class Utils {
     else if ([803, 804].includes(code)) image = "clouds";
 
     const imageTag: HTMLImageElement = document.createElement("img");
+    const imageURL: Image = `/src/assets/${image}.svg`;
     try {
-      imageTag.src = `images/${image}.svg`;
+      imageTag.src = imageURL;
+      imageTag.alt = "";
     } catch (error) {
       console.error("Error loading image:", error);
     }
-    imageTag.alt = "";
-    return imageTag;
+
+    return imageURL;
   }
 
   @isPositive()
@@ -93,10 +95,16 @@ class Utils {
   }
 
   // Check if the temperature is zero and return 0 instead of -0.
-  static checkIfZeroTemp(temp: number): string {
+  static checkIfZeroTemp(temp: number): number {
     const roundedTemp: string = temp.toFixed(0);
-    return roundedTemp === "-0" ? "0" : roundedTemp;
+    return parseFloat(roundedTemp === "-0" ? "0" : roundedTemp);
   }
+
+  static getWeekday = (timestamp: number): Weekday => {
+    return new Date(timestamp * 1000).toLocaleDateString("en-US", {
+      weekday: "long",
+    }) as Weekday;
+  };
 }
 
 export const capitalize = Utils.capitalize;
@@ -106,3 +114,4 @@ export const convertMpsToKmph = Utils.convertMpsToKmph;
 export const convertAQI = Utils.convertAQI;
 export const convertToLocalTime = Utils.convertToLocalTime;
 export const checkIfZeroTemp = Utils.checkIfZeroTemp;
+export const getWeekday = Utils.getWeekday;

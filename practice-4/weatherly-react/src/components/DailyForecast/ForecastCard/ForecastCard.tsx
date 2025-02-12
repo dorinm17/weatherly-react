@@ -1,8 +1,9 @@
 import styles from "./ForecastCard.module.css";
+import { Image, Weekday } from "../../../utils/types";
 
 interface ForecastCardProps {
-  weekday: string;
-  icon: string;
+  weekday: Weekday;
+  icon: Image;
   description: string;
   maxTemp: number;
   minTemp: number;

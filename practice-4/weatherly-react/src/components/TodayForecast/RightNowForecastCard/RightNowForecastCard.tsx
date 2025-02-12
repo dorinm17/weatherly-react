@@ -1,6 +1,6 @@
 import styles from "./RightNowForecastCard.module.css";
+import { Image } from "../../../utils/types";
 
-type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 interface RightNowForecastCardProps {
   city: string;
   countryCode: string;
