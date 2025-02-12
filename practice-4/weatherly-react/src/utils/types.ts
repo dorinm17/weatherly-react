@@ -114,6 +114,15 @@ type Weekday =
   | "Saturday"
   | "Sunday";
 
+interface WeatherContextType {
+  weatherData: WeatherData | null;
+  setWeatherData: React.Dispatch<React.SetStateAction<WeatherData | null>>;
+  userInput: boolean;
+  setUserInput: React.Dispatch<React.SetStateAction<boolean>>;
+  currentCity: string;
+  setCurrentCity: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export type {
   WeatherData,
   CityCoordinates,
@@ -126,15 +135,7 @@ export type {
   Time,
   Image,
   Weekday,
+  WeatherContextType,
 };
-
-interface WeatherContextType {
-  weatherData: WeatherData | null;
-  setWeatherData: React.Dispatch<React.SetStateAction<WeatherData | null>>;
-  userInput: boolean;
-  setUserInput: React.Dispatch<React.SetStateAction<boolean>>;
-  currentCity: string;
-  setCurrentCity: React.Dispatch<React.SetStateAction<string>>;
-}
 
 export const WeatherContext = createContext<WeatherContextType | null>(null);
