@@ -71,7 +71,7 @@ interface AirPollution {
   }[];
 }
 
-interface CurrentWeather {
+interface CurrentForecast {
   coord: {
     lon: number;
     lat: number;
@@ -99,19 +99,24 @@ interface WeatherData {
   hourlyForecast: HourlyForecast;
   dailyForecast: DailyForecast;
   airPollution: AirPollutionFailproof;
-  currentWeather: CurrentWeather;
+  currentWeather: CurrentForecast;
 }
 
+type Time = `${number}:${number}`;
+type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
+
 export type {
-    WeatherData,
-    CityCoordinates,
-    HourlyForecast,
-    DailyForecast,
-    AQI,
-    AQIVerbose,
-    AirPollutionFailproof,
-    CurrentWeather,
-}
+  WeatherData,
+  CityCoordinates,
+  HourlyForecast,
+  DailyForecast,
+  AQI,
+  AQIVerbose,
+  AirPollutionFailproof,
+  CurrentForecast,
+  Time,
+  Image,
+};
 
 interface WeatherContextType {
   weatherData: WeatherData | null;

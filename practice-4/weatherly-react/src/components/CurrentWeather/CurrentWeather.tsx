@@ -8,9 +8,18 @@ import airQuality from "/src/assets/air-quality.svg";
 import sunset from "/src/assets/sunset.svg";
 import gusts from "/src/assets/gusts.svg";
 import cloudiness from "/src/assets/uv-index.svg";
+import { useContext } from "react";
+import {
+  WeatherData,
+  HourlyForecast,
+  CurrentForecast,
+  AirPollutionFailproof,
+  WeatherContext,
+  Time,
+  Image,
+} from "../../utils/types";
+import { convertToLocalTime, convertAQI } from "../../utils/helpers";
 
-type Time = `${number}:${number}`;
-type Image = `${string}.svg` | `${string}.png` | `${string}.jpg`;
 export interface WeatherDetailProps {
   icon: Image;
   label: string;
@@ -21,50 +30,62 @@ export interface WeatherDetailProps {
 }
 
 function CurrentWeather() {
+  const data: WeatherData = useContext(WeatherContext)
+    ?.weatherData as WeatherData;
+  const hourlyForecast: HourlyForecast = data.hourlyForecast;
+  const currentWeather: CurrentForecast = data.currentWeather;
+  const airPollution: AirPollutionFailproof = data.airPollution;
+
   const details: WeatherDetailProps[] = [
     {
       icon: humidity as Image,
       label: "Humidity",
-      unitValue: 73,
+      unitValue: currentWeather.main.humidity,
       unit: "%",
     },
     {
       icon: temperature as Image,
       label: "Feels like",
-      unitValue: 5,
+      unitValue: parseFloat(currentWeather.main.feels_like.toFixed(0)),
       unit: "°C",
     },
     {
       icon: sunrise as Image,
       label: "Rise",
-      hourValue: "08:44",
+      hourValue: convertToLocalTime(
+        currentWeather.sys.sunrise as number,
+        currentWeather.timezone
+      ),
     },
     {
       icon: wind as Image,
       label: "Wind",
-      unitValue: 6,
+      unitValue: parseFloat(currentWeather.wind.speed.toFixed(0)),
       unit: "km/h",
     },
     {
       icon: airQuality as Image,
       label: "Air quality",
-      strValue: "Poor",
+      strValue: airPollution === "-" ? "-" : convertAQI(airPollution.list[0].main.aqi),
     },
     {
       icon: sunset as Image,
       label: "Set",
-      hourValue: "17:01",
+      hourValue: convertToLocalTime(
+        currentWeather.sys.sunset as number,
+        currentWeather.timezone
+      ),
     },
     {
       icon: gusts as Image,
       label: "Gusts",
-      unitValue: 12,
+      unitValue: parseFloat(hourlyForecast.list[0].wind.gust.toFixed(0)),
       unit: "km/h",
     },
     {
       icon: cloudiness as Image,
       label: "Cloudiness",
-      unitValue: 0,
+      unitValue: currentWeather.clouds.all,
       unit: "%",
     },
   ];

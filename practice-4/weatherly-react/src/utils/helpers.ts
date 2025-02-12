@@ -1,4 +1,4 @@
-import { AQI, AQIVerbose } from "./types";
+import type { AQI, AQIVerbose, Time } from "./types";
 
 // Decorator to check if the `number` type arguments for most of the methods are positive.
 const isPositive = (paramIndexes?: number[]): MethodDecorator => {
@@ -83,13 +83,13 @@ class Utils {
   }
 
   @isPositive([0])
-  static convertToLocalTime(time: number, timezone: number): string {
+  static convertToLocalTime(time: number, timezone: number): Time {
     return new Date((time + timezone) * 1000).toLocaleTimeString("en-US", {
       timeZone: "UTC",
       hour: "numeric",
       minute: "2-digit",
       hour12: false,
-    });
+    }) as Time;
   }
 
   // Check if the temperature is zero and return 0 instead of -0.

@@ -2,7 +2,7 @@ import { GOOGLE_MAPS_API_KEY, OPENWEATHER_API_KEY } from "./const";
 import {
   AirPollutionFailproof,
   CityCoordinates,
-  CurrentWeather,
+  CurrentForecast,
   DailyForecast,
   HourlyForecast,
   WeatherData,
@@ -92,7 +92,7 @@ const getWeather = async (city: string): Promise<WeatherData> => {
       hourlyForecast: responses[0] as HourlyForecast,
       dailyForecast: responses[1] as DailyForecast,
       airPollution: responses[2] as AirPollutionFailproof,
-      currentWeather: responses[3] as CurrentWeather,
+      currentWeather: responses[3] as CurrentForecast,
     };
 
     return weatherData;
