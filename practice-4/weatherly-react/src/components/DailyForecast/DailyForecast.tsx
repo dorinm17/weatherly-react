@@ -1,6 +1,6 @@
 import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { FiveDayForecast, WeatherContext, WeatherData } from "../../utils/types";
 import {
   getWeekday,
@@ -29,4 +29,4 @@ function DailyForecast() {
   );
 }
 
-export default DailyForecast;
+export default React.memo(DailyForecast);
