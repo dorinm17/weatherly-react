@@ -95,11 +95,16 @@ interface CurrentForecast {
   cod: number;
 }
 
+type WeatherError = {
+  cod: string | number;
+  message: string;
+};
+
 interface WeatherData {
-  hourlyForecast: HourlyForecast;
-  dailyForecast: FiveDayForecast;
-  airPollution: AirPollutionFailproof;
-  currentWeather: CurrentForecast;
+  hourlyForecast: HourlyForecast | WeatherError;
+  dailyForecast: FiveDayForecast | WeatherError;
+  airPollution: AirPollutionFailproof | WeatherError;
+  currentWeather: CurrentForecast | WeatherError;
 }
 
 type Time = `${number}:${number}`;
@@ -136,6 +141,7 @@ export type {
   Image,
   Weekday,
   WeatherContextType,
+  WeatherError,
 };
 
 export const WeatherContext = createContext<WeatherContextType | null>(null);

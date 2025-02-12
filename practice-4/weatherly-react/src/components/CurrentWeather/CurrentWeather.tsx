@@ -8,7 +8,7 @@ import airQuality from "/src/assets/air-quality.svg";
 import sunset from "/src/assets/sunset.svg";
 import gusts from "/src/assets/gusts.svg";
 import cloudiness from "/src/assets/uv-index.svg";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   WeatherData,
   HourlyForecast,
@@ -34,15 +34,8 @@ export interface WeatherDetailProps {
 }
 
 function CurrentWeather() {
-  const { weatherData } = useContext(WeatherContext) ?? {};
-  const [previousWeatherData, setPreviousWeatherData] =
-    useState<WeatherData | null>(null);
-
-  useEffect(() => {
-    if (weatherData) setPreviousWeatherData(weatherData);
-  }, [weatherData]);
-
-  const data = weatherData || previousWeatherData;
+  const data: WeatherData = useContext(WeatherContext)
+    ?.weatherData as WeatherData;
   const hourlyForecast: HourlyForecast = data?.hourlyForecast as HourlyForecast;
   const currentWeather: CurrentForecast =
     data?.currentWeather as CurrentForecast;

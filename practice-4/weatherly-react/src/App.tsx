@@ -54,8 +54,10 @@ function App() {
         } else console.log("Geolocation is not supported by this browser.");
         // Now that we have the actual current location, fetch the weather
         const data: WeatherData = await getWeather(city);
-        setWeatherData(data);
-        setLoading(false);
+        if (data.currentWeather.cod == 200) {
+          setWeatherData(data);
+          setLoading(false);
+        }
       } catch (error) {
         if ((error as GeolocationPositionError).code === 1) {
           console.error("User denied geolocation access.");

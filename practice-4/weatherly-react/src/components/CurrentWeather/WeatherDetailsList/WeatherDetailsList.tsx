@@ -5,10 +5,10 @@ type WeatherDetailsListProps = { details: WeatherDetailProps[] };
 
 function WeatherDetailsList(props: WeatherDetailsListProps) {
   const details = props.details.map(
-    (detail: WeatherDetailProps, index: number) => {
+    (detail: WeatherDetailProps) => {
       if (detail.unit) {
         return (
-          <li className={styles.detail} key={index}>
+          <li className={styles.detail} key={detail.label}>
             <img className={styles.detailIcon} src={detail.icon} alt="" />{" "}
             {detail.label}: {detail.unitValue}
             {detail.unit}
@@ -18,14 +18,14 @@ function WeatherDetailsList(props: WeatherDetailsListProps) {
 
       if (detail.hourValue) {
         return (
-          <li className={styles.detail} key={index}>
+          <li className={styles.detail} key={detail.label}>
             <img src={detail.icon} alt="" /> {detail.label}: {detail.hourValue}
           </li>
         );
       }
 
       return (
-        <li className={styles.detail} key={index}>
+        <li className={styles.detail} key={detail.label}>
           <img src={detail.icon} alt="" /> {detail.label}: {detail.strValue}
         </li>
       );

@@ -1,11 +1,7 @@
 import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
-import React, { useContext, useEffect, useState } from "react";
-import {
-  WeatherData,
-  FiveDayForecast,
-  WeatherContext,
-} from "../../utils/types";
+import { useContext } from "react";
+import { FiveDayForecast, WeatherContext, WeatherData } from "../../utils/types";
 import {
   getWeekday,
   chooseImage,
@@ -14,23 +10,14 @@ import {
 } from "../../utils/helpers";
 
 function DailyForecast() {
-  const { weatherData } = useContext(WeatherContext) ?? {};
-  const [previousWeatherData, setPreviousWeatherData] =
-    useState<WeatherData | null>(null);
-
-  useEffect(() => {
-    if (weatherData) setPreviousWeatherData(weatherData);
-  }, [weatherData]);
-
-  const data = weatherData || previousWeatherData;
-
+  const data = useContext(WeatherContext)?.weatherData as WeatherData;
   const dailyForecast: FiveDayForecast = data?.dailyForecast as FiveDayForecast;
 
   return (
     <section className={styles.fiveDayForecast}>
       {dailyForecast.list.slice(0, 5).map((forecast, index) => (
         <ForecastCard
-          key={index}
+          key={forecast.dt}
           weekday={index === 0 ? "Today" : getWeekday(forecast.dt)}
           icon={chooseImage(forecast.weather[0].id as number, true)}
           description={capitalize(forecast.weather[0].description as string)}
@@ -42,4 +29,4 @@ function DailyForecast() {
   );
 }
 
-export default React.memo(DailyForecast);
+export default DailyForecast;
