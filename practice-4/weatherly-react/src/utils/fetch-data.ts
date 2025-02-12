@@ -1,8 +1,4 @@
-import {
-  GOOGLE_MAPS_API_KEY,
-  OPENWEATHER_API_KEY,
-  sessionKeys,
-} from "./const";
+import { GOOGLE_MAPS_API_KEY, OPENWEATHER_API_KEY } from "./const";
 import {
   AirPollutionFailproof,
   CityCoordinates,
@@ -11,6 +7,8 @@ import {
   HourlyForecast,
   WeatherData,
 } from "./types";
+import { WeatherContext } from "./types";
+import { useContext } from "react";
 
 // Use Google Maps Geocoding API to get the city name based on the user's coordinates, since OpenWeather is not highly precise.
 const reverseGeocode = async (
@@ -36,7 +34,7 @@ const reverseGeocode = async (
     })
     .catch((error) => {
       console.error("Error getting city name:", error);
-      return sessionStorage.getItem(sessionKeys.currentCity);
+      return useContext(WeatherContext)?.currentCity ?? null;
     });
 
   return city;

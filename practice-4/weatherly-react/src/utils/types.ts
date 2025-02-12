@@ -1,3 +1,5 @@
+import { createContext } from "react";
+
 interface CityCoordinates {
   name: string;
   lat: number;
@@ -100,7 +102,7 @@ interface WeatherData {
   currentWeather: CurrentWeather;
 }
 
-export {
+export type {
     WeatherData,
     CityCoordinates,
     HourlyForecast,
@@ -110,3 +112,14 @@ export {
     AirPollutionFailproof,
     CurrentWeather,
 }
+
+interface WeatherContextType {
+  weatherData: WeatherData | null;
+  setWeatherData: React.Dispatch<React.SetStateAction<WeatherData | null>>;
+  userInput: boolean;
+  setUserInput: React.Dispatch<React.SetStateAction<boolean>>;
+  currentCity: string;
+  setCurrentCity: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const WeatherContext = createContext<WeatherContextType | null>(null);

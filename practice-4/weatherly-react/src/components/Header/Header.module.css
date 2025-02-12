@@ -67,7 +67,7 @@
     margin-top: 0;
   }
 }
-@media (max-width: 345px) {
+@media (max-width: 380px) {
   .header {
     margin-inline: 1.5rem;
   }

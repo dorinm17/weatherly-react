@@ -38,3 +38,8 @@
     font-size: 1.6rem;
   }
 }
+@media (max-width: 380px) {
+  .detail {
+    font-size: 1.4rem;
+  }
+}

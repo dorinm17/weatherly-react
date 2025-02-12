@@ -20,12 +20,10 @@
   }
 }
 @media (max-width: 380px) {
-  .copyright {
-    font-size: 1.3rem;
-  }
-}
-@media (max-width: 345px) {
   .footer {
     padding-inline: 1.5rem;
+  }
+  .copyright {
+    font-size: 1.3rem;
   }
 }
