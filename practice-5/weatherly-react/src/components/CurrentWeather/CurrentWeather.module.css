@@ -1,0 +1,22 @@
+.currentWeather {
+  /* Trick to make the unordered list take up the whole height */
+  display: grid;
+
+  background: linear-gradient(
+    var(--last-section-bg-color),
+    var(--section-bg-color) 30%
+  );
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 1200px) {
+  .currentWeather {
+    grid-row: 2 / 3;
+
+    background: linear-gradient(
+      var(--section-and-footer-color),
+      var(--section-bg-color) 80%
+    );
+  }
+}

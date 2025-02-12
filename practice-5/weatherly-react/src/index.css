@@ -1,0 +1,88 @@
+/* -------------------
+    Global Styles
+------------------- */
+:root {
+  --text-color: rgb(224 225 221);
+  --logo-color: rgb(26 186 255);
+  --motto-color: rgb(171 151 189 / 0.9);
+  --nav-color: rgb(65 90 119 / 0.5);
+  --main-bg-color: rgb(13 27 42);
+  --accent-color: rgb(119 141 169);
+  --section-bg-color: rgb(65 90 119);
+  --section-and-footer-color: rgb(27 38 59);
+  --last-section-bg-color: rgb(27 38 59 / 0.3);
+  --normal-font: "Avenir Next", "Arial Rounded MT Regular", system-ui;
+  --heading-font: "Adobe Clean", "Trebuchet MS", system-ui;
+  --loading-spinner-color: rgb(52 152 219);
+}
+html {
+  height: 100%;
+
+  font-size: 62.5%;
+
+  background-color: var(--main-bg-color);
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  position: relative;
+
+  margin: 0;
+  min-height: 100%;
+
+  font-size: 1.6rem;
+  font-family: var(--normal-font);
+  letter-spacing: 0.032rem;
+  color: var(--text-color);
+  background: linear-gradient(
+      to bottom,
+      var(--main-bg-color) 60%,
+      var(--accent-color)
+    )
+    no-repeat;
+  background-size: cover;
+
+  scroll-behavior: smooth;
+}
+#root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Trick to make the footer stick to the bottom */
+  grid-template-columns: 100%;
+  gap: 5rem;
+}
+/* -------------------
+        Main
+------------------- */
+main {
+  /* display: none; /* Hide the main content by default in case OpenWeatherMap API fails */
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  grid-template-rows: 1.3fr 1fr;
+  gap: 5rem;
+  margin-inline: 3rem;
+}
+section {
+  padding-inline: 3rem;
+
+  border-radius: 20px;
+  box-shadow: 0 0 5rem rgb(27 38 59 / 0.6);
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 1200px) {
+  main {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(3, auto);
+  }
+}
+@media (max-width: 345px) {
+  main {
+    margin-inline: 1.5rem;
+  }
+}

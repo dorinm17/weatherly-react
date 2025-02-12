@@ -1,0 +1,74 @@
+.header {
+  display: grid;
+  margin-inline: 3rem;
+}
+.titleDiv {
+  display: flex;
+  margin-left: 18rem;
+  margin-right: 13rem;
+  justify-content: space-between;
+  gap: 10rem;
+
+  font-family: var(--heading-font);
+}
+.title {
+  max-width: 100%;
+  align-self: center;
+
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 1.2rem;
+  color: transparent;
+
+  background-image: linear-gradient(
+    to bottom right,
+    var(--logo-color) 20%,
+    #fff 75%,
+    var(--logo-color)
+  );
+  background-clip: text;
+}
+.motto {
+  max-width: 100%;
+  align-self: center;
+
+  font-size: 2.3rem;
+  font-weight: 500;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: var(--motto-color);
+}
+.exclamationMark {
+  font-weight: 800;
+}
+.banner {
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 1200px) {
+  .titleDiv {
+    margin-left: 15rem;
+    margin-right: 10rem;
+  }
+}
+@media (max-width: 900px) {
+  .titleDiv {
+    margin-inline: 0;
+    flex-direction: column;
+    gap: 0;
+
+    text-align: center;
+  }
+  .motto {
+    margin-top: 0;
+  }
+}
+@media (max-width: 380px) {
+  .header {
+    margin-inline: 1.5rem;
+  }
+}

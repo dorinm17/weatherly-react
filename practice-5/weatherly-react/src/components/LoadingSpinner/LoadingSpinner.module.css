@@ -1,0 +1,25 @@
+/* Center the spinner */
+.loadingSpinner {
+  display: grid;
+  justify-items: center;
+  gap: 1rem; /* Adds spacing between spinner and text */
+}
+/* Spinner animation */
+.spinnerCircle {
+  width: 5rem;
+  height: 5rem;
+
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid var(--loading-spinner-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+/* Rotate animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

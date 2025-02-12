@@ -1,0 +1,36 @@
+.icon {
+  width: 7rem;
+}
+.div {
+  display: grid;
+  justify-items: center;
+  padding-inline: 1rem;
+
+  border-right: 1px solid var(--accent-color);
+}
+.div:last-child {
+  border-right: 0;
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 670px) {
+  .div {
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    padding-block: 1rem;
+
+    border-right: 0;
+    border-bottom: 1px solid var(--accent-color);
+  }
+  .div:last-child {
+    padding-bottom: 0;
+
+    border-bottom: 0;
+  }
+}
+@media (max-width: 380px) {
+  .icon {
+    width: 6rem;
+  }
+}

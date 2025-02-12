@@ -1,0 +1,35 @@
+.rightNow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.city {
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+.city,
+.p {
+  margin: 0;
+}
+.countryCode,
+.p:first-of-type {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+.rightNowIcon {
+  width: 11rem;
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 380px) {
+  .city {
+    font-size: 2rem;
+  }
+  .rightNowIcon {
+    width: 9rem;
+  }
+}

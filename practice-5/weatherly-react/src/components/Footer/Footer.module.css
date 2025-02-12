@@ -1,0 +1,29 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-row: 3;
+  padding-inline: 3rem;
+
+  font-size: 1.5rem;
+  letter-spacing: 0.015rem;
+
+  background-color: var(--section-and-footer-color);
+}
+/* -------------------
+    Media Queries
+------------------- */
+@media (max-width: 550px) {
+  .footer {
+    flex-direction: column;
+    height: auto;
+  }
+}
+@media (max-width: 380px) {
+  .footer {
+    padding-inline: 1.5rem;
+  }
+  .copyright {
+    font-size: 1.3rem;
+  }
+}
