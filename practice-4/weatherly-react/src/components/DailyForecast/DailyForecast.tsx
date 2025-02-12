@@ -1,6 +1,6 @@
 import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   WeatherData,
   FiveDayForecast,
@@ -23,7 +23,7 @@ function DailyForecast() {
   }, [weatherData]);
 
   const data = weatherData || previousWeatherData;
-  
+
   const dailyForecast: FiveDayForecast = data?.dailyForecast as FiveDayForecast;
 
   return (
@@ -42,4 +42,4 @@ function DailyForecast() {
   );
 }
 
-export default DailyForecast;
+export default React.memo(DailyForecast);

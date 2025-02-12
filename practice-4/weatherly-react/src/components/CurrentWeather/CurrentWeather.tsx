@@ -8,7 +8,7 @@ import airQuality from "/src/assets/air-quality.svg";
 import sunset from "/src/assets/sunset.svg";
 import gusts from "/src/assets/gusts.svg";
 import cloudiness from "/src/assets/uv-index.svg";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   WeatherData,
   HourlyForecast,
@@ -44,8 +44,10 @@ function CurrentWeather() {
 
   const data = weatherData || previousWeatherData;
   const hourlyForecast: HourlyForecast = data?.hourlyForecast as HourlyForecast;
-  const currentWeather: CurrentForecast = data?.currentWeather as CurrentForecast;
-  const airPollution: AirPollutionFailproof = data?.airPollution as AirPollutionFailproof;
+  const currentWeather: CurrentForecast =
+    data?.currentWeather as CurrentForecast;
+  const airPollution: AirPollutionFailproof =
+    data?.airPollution as AirPollutionFailproof;
 
   const details: WeatherDetailProps[] = [
     {
@@ -109,4 +111,4 @@ function CurrentWeather() {
   );
 }
 
-export default CurrentWeather;
+export default React.memo(CurrentWeather);

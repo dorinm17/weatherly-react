@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { WeatherContext, WeatherContextType } from "../../../utils/types";
 import { getWeather } from "../../../utils/fetch-data";
 
+// URL Parameters
 function SearchBar() {
   const wc: WeatherContextType = useContext(
     WeatherContext

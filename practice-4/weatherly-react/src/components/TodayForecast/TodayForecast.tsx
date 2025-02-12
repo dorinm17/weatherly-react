@@ -1,7 +1,7 @@
 import styles from "./TodayForecast.module.css";
 import RightNowForecastCard from "./RightNowForecastCard/RightNowForecastCard";
 import HourlyForecastCard from "./HourlyForecastCard/HourlyForecastCard";
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   WeatherData,
   FiveDayForecast,
@@ -53,9 +53,9 @@ function TodayForecast() {
       />
 
       <div className={styles.hourlyForecast}>
-        {hourlyForecast.list.slice(0, 10).map((hour, index) => (
+        {hourlyForecast.list.slice(0, 10).map((hour) => (
           <HourlyForecastCard
-            key={index}
+            key={hour.dt}
             time={convertToLocalTime(
               hour.dt,
               hourlyForecast.city.timezone as number
@@ -69,4 +69,4 @@ function TodayForecast() {
   );
 }
 
-export default TodayForecast;
+export default React.memo(TodayForecast);

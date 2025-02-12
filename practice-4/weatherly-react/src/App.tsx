@@ -4,8 +4,8 @@ import Footer from "./components/Footer/Footer";
 import DailyForecast from "./components/DailyForecast/DailyForecast";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import TodayForecast from "./components/TodayForecast/TodayForecast";
-import { useEffect, useState } from "react";
-import { WeatherContext, WeatherData } from "./utils/types";
+import { useEffect, useState, useMemo } from "react";
+import { WeatherContext, WeatherData, WeatherContextType } from "./utils/types";
 import { defaultCity } from "./utils/const";
 import { getWeather, reverseGeocode } from "./utils/fetch-data";
 
@@ -17,6 +17,8 @@ function App() {
 
   // When the current session ends, reset the weather to the user's current location.
   useEffect(() => {
+    const controller: AbortController = new AbortController();
+
     const handleBeforeUnload = () => {
       setUserInput(false);
       setCurrentCity(defaultCity);
@@ -24,69 +26,62 @@ function App() {
       setLoading(true);
     };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
+    window.addEventListener("beforeunload", handleBeforeUnload, {
+      signal: controller.signal,
+    });
+
+    // Cleans up all event listeners associated with `controller.signal`
+    return () => controller.abort();
   }, []);
 
   // Before the user gets to search for a city, the app will display the weather for the default city.
   useEffect(() => {
-    let isMounted = true;
-    const fetchAndUnmount = async (city: string) => {
+    let city: string = defaultCity;
+
+    (async () => {
       try {
-        setLoading(true);
-        const data = await getWeather(city);
-        if (isMounted) setWeatherData(data);
+        if (navigator.geolocation) {
+          // Wrap geolocation in a Promise to ensure we wait for it.
+          const position: GeolocationPosition =
+            await new Promise<GeolocationPosition>((resolve, reject) => {
+              navigator.geolocation.getCurrentPosition(resolve, reject);
+            });
+          const latitude: number = position.coords.latitude;
+          const longitude: number = position.coords.longitude;
+
+          city = (await reverseGeocode(latitude, longitude)) ?? defaultCity;
+          setCurrentCity(city);
+        } else console.log("Geolocation is not supported by this browser.");
+        // Now that we have the actual current location, fetch the weather
+        const data: WeatherData = await getWeather(city);
+        setWeatherData(data);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching weather data:", error);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    if (!userInput) {
-      (async () => {
-        try {
-          if (navigator.geolocation) {
-            const position = await new Promise<GeolocationPosition>(
-              (resolve, reject) =>
-                navigator.geolocation.getCurrentPosition(resolve, reject)
-            );
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            const city =
-              (await reverseGeocode(latitude, longitude)) || currentCity;
-            setCurrentCity(city);
-            fetchAndUnmount(city);
-          } else {
-            fetchAndUnmount(currentCity);
-          }
-        } catch (error) {
-          console.error("Error during geolocation:", error);
+        if ((error as GeolocationPositionError).code === 1) {
+          console.error("User denied geolocation access.");
+          setLoading(false);
+          return;
         }
-      })();
-    } else {
-      fetchAndUnmount(currentCity);
-    }
+        console.error("Error in initial weather process:", error);
+      }
+    })();
+  }, []);
 
-    return () => {
-      isMounted = false;
-    };
-  }, [userInput, currentCity]);
+  // Memoize the context value to avoid unnecessary re-renders
+  const contextValue = useMemo<WeatherContextType>(
+    () => ({
+      weatherData,
+      setWeatherData,
+      userInput,
+      setUserInput,
+      currentCity,
+      setCurrentCity,
+    }),
+    [weatherData, userInput, currentCity]
+  );
 
   return (
-    <WeatherContext.Provider
-      value={{
-        weatherData,
-        setWeatherData,
-        userInput,
-        setUserInput,
-        currentCity,
-        setCurrentCity,
-      }}
-    >
+    <WeatherContext.Provider value={contextValue}>
       <Header />
 
       {loading && <LoadingSpinner />}
