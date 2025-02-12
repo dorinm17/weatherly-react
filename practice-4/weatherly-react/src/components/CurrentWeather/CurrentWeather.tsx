@@ -8,7 +8,7 @@ import airQuality from "/src/assets/air-quality.svg";
 import sunset from "/src/assets/sunset.svg";
 import gusts from "/src/assets/gusts.svg";
 import cloudiness from "/src/assets/uv-index.svg";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   WeatherData,
   HourlyForecast,
@@ -18,7 +18,11 @@ import {
   Time,
   Image,
 } from "../../utils/types";
-import { convertToLocalTime, convertAQI, checkIfZeroTemp } from "../../utils/helpers";
+import {
+  convertToLocalTime,
+  convertAQI,
+  checkIfZeroTemp,
+} from "../../utils/helpers";
 
 export interface WeatherDetailProps {
   icon: Image;
@@ -30,11 +34,18 @@ export interface WeatherDetailProps {
 }
 
 function CurrentWeather() {
-  const data: WeatherData = useContext(WeatherContext)
-    ?.weatherData as WeatherData;
-  const hourlyForecast: HourlyForecast = data.hourlyForecast;
-  const currentWeather: CurrentForecast = data.currentWeather;
-  const airPollution: AirPollutionFailproof = data.airPollution;
+  const { weatherData } = useContext(WeatherContext) ?? {};
+  const [previousWeatherData, setPreviousWeatherData] =
+    useState<WeatherData | null>(null);
+
+  useEffect(() => {
+    if (weatherData) setPreviousWeatherData(weatherData);
+  }, [weatherData]);
+
+  const data = weatherData || previousWeatherData;
+  const hourlyForecast: HourlyForecast = data?.hourlyForecast as HourlyForecast;
+  const currentWeather: CurrentForecast = data?.currentWeather as CurrentForecast;
+  const airPollution: AirPollutionFailproof = data?.airPollution as AirPollutionFailproof;
 
   const details: WeatherDetailProps[] = [
     {
@@ -66,7 +77,8 @@ function CurrentWeather() {
     {
       icon: airQuality as Image,
       label: "Air quality",
-      strValue: airPollution === "-" ? "-" : convertAQI(airPollution.list[0].main.aqi),
+      strValue:
+        airPollution === "-" ? "-" : convertAQI(airPollution.list[0].main.aqi),
     },
     {
       icon: sunset as Image,

@@ -1,6 +1,6 @@
 import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   WeatherData,
   FiveDayForecast,
@@ -14,9 +14,17 @@ import {
 } from "../../utils/helpers";
 
 function DailyForecast() {
-  const data: WeatherData = useContext(WeatherContext)
-    ?.weatherData as WeatherData;
-  const dailyForecast: FiveDayForecast = data.dailyForecast;
+  const { weatherData } = useContext(WeatherContext) ?? {};
+  const [previousWeatherData, setPreviousWeatherData] =
+    useState<WeatherData | null>(null);
+
+  useEffect(() => {
+    if (weatherData) setPreviousWeatherData(weatherData);
+  }, [weatherData]);
+
+  const data = weatherData || previousWeatherData;
+  
+  const dailyForecast: FiveDayForecast = data?.dailyForecast as FiveDayForecast;
 
   return (
     <section className={styles.fiveDayForecast}>
