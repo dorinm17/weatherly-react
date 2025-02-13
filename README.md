@@ -25,7 +25,7 @@ Using Vanilla JavaScript and asynchronous programming, I added _interactive feat
 
 When loaded, the app attempts to _geolocate_ 📍 the user and displays the weather for their current location. If geolocation fails—whether due to denied permissions or a Google Maps API error—the weather defaults to Bucharest.
 
-The search bar lets users _look up the weather for any location_, as long as the data is available from the OpenWeatherMap API 🌦️. During network issues, a loading spinner keeps users informed, encouraging them to check their connection and try again 🔄 .
+The search bar lets users _look up the weather for any location_, as long as the data is available from the OpenWeatherMap API 🌦️. During network issues, a loading spinner keeps users informed, encouraging them to check their connection and try reconnecting 🔄 .
 
 ### 🔳 Practice 3
 
