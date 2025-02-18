@@ -62,6 +62,11 @@ function App() {
       } catch (error) {
         if ((error as GeolocationPositionError).code === 1) {
           console.error("User denied geolocation access.");
+          const data: WeatherData = await getWeather(city);
+          if (data.currentWeather.cod == 200) {
+            setWeatherData(data);
+            setLoading(false);
+          }
           setLoading(false);
           return;
         }
