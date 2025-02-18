@@ -1,5 +1,5 @@
 import SearchBar from "./SearchBar/SearchBar";
-import banner from "/src/assets/weather-transition.jpeg";
+import banner from "../../assets/weather-transition.jpeg";
 import styles from "./Header.module.css";
 
 function Header() {
@@ -14,7 +14,12 @@ function Header() {
         </h2>
       </div>
 
-      <img className={styles.banner} src={banner} alt="" />
+      <img
+        data-testid="banner-image"
+        className={styles.banner}
+        src={banner}
+        alt=""
+      />
 
       <SearchBar />
     </header>
