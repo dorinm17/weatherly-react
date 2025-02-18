@@ -21,7 +21,6 @@ function SearchBar() {
 
     try {
       const weatherData: WeatherData = await getWeather(city);
-      console.log("Fetched weather data:", weatherData);
   
       if (weatherData.currentWeather.cod == 200) {
         wc.setUserInput(true);

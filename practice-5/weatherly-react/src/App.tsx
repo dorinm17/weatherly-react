@@ -8,6 +8,7 @@ import { useEffect, useState, useMemo } from "react";
 import { WeatherContext, WeatherData, WeatherContextType } from "./utils/types";
 import { defaultCity } from "./utils/const";
 import { getWeather, reverseGeocode } from "./utils/fetch-data";
+import ErrorBoundary from "./ErrorBoundary";
 
 function App() {
   const [userInput, setUserInput] = useState<boolean>(false);
@@ -89,9 +90,17 @@ function App() {
       {loading && <LoadingSpinner />}
       {!loading && (
         <main>
-          <DailyForecast />
-          <TodayForecast />
-          <CurrentWeather />
+          <ErrorBoundary fallback="There was an error.">
+            <DailyForecast />
+          </ErrorBoundary>
+
+          <ErrorBoundary fallback="There was an error.">
+            <TodayForecast />
+          </ErrorBoundary>
+
+          <ErrorBoundary fallback="There was an error.">
+            <CurrentWeather />
+          </ErrorBoundary>
         </main>
       )}
 
