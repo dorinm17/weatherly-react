@@ -1,5 +1,5 @@
 import styles from "./SearchBar.module.css";
-import searchIcon from "/src/assets/search.svg";
+import searchIcon from "../../../assets/search.svg";
 import { useContext, useState } from "react";
 import {
   WeatherContext,
