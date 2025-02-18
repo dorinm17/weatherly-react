@@ -21,7 +21,7 @@ function SearchBar() {
 
     try {
       const weatherData: WeatherData = await getWeather(city);
-  
+
       if (weatherData.currentWeather.cod == 200) {
         wc.setUserInput(true);
         wc.setCurrentCity(city);
@@ -37,6 +37,7 @@ function SearchBar() {
   return (
     <nav>
       <form
+        aria-label="City search form"
         action=""
         method="get"
         autoComplete="off"

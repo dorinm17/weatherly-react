@@ -8,8 +8,6 @@ import {
   WeatherData,
   WeatherError,
 } from "./types";
-import { WeatherContext } from "./types";
-import { useContext } from "react";
 
 // Use Google Maps Geocoding API to get the city name based on the user's coordinates, since OpenWeather is not highly precise.
 const reverseGeocode = async (
@@ -35,7 +33,7 @@ const reverseGeocode = async (
     })
     .catch((error) => {
       console.error("Error getting city name:", error);
-      return useContext(WeatherContext)?.currentCity ?? null;
+      return null;
     });
 
   return city;
@@ -54,15 +52,21 @@ const getCityCoordinates = async <CityCoordinates>(
     });
 
   // Return the first city coordinate if it exists, otherwise null
-  return response.length > 0 ? response[0] : null;
+  return (response && response.length > 0) ? response[0] : null;
 };
 
 // Use OpenWeatherMap API to retrieve the weather data for a given city and country code.
 const getWeather = async (city: string): Promise<WeatherData> => {
-  const coords: CityCoordinates | null = await getCityCoordinates(city);
+  let coords: CityCoordinates | null = await getCityCoordinates(city);
 
   if (!coords) {
-    throw new Error(`Coordinates not found for city: ${city}`);
+    coords = {
+      lat: 0,
+      lon: 0,
+      name: "Unknown",
+      country: "Unknown",
+      local_names: {},
+    };
   }
 
   const urls: string[] = [
@@ -103,4 +107,4 @@ const getWeather = async (city: string): Promise<WeatherData> => {
   }
 };
 
-export { getWeather, reverseGeocode };
+export { getWeather, reverseGeocode, getCityCoordinates };

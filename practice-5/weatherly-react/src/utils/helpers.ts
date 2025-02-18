@@ -94,17 +94,18 @@ class Utils {
     }) as Time;
   }
 
-  // Check if the temperature is zero and return 0 instead of -0.
+  // Check if the temperature is zero and return 0 instead of -0. Return the rounded temperature in any case.
   static checkIfZeroTemp(temp: number): number {
     const roundedTemp: string = temp.toFixed(0);
     return parseFloat(roundedTemp === "-0" ? "0" : roundedTemp);
   }
 
-  static getWeekday = (timestamp: number): Weekday => {
+  @isPositive()
+  static getWeekday(timestamp: number): Weekday {
     return new Date(timestamp * 1000).toLocaleDateString("en-US", {
       weekday: "long",
     }) as Weekday;
-  };
+  }
 }
 
 export const capitalize = Utils.capitalize;

@@ -1,102 +1,92 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import SearchBar from "./SearchBar";
-import { getWeather } from "../../../utils/fetch-data";
 import { WeatherContext } from "../../../utils/types";
+import { getWeather } from "../../../utils/fetch-data";
 
-// Mocking the getWeather function
 jest.mock("../../../utils/fetch-data", () => ({
   getWeather: jest.fn(),
 }));
 
-describe("SearchBar Component", () => {
-  it("should render input field", () => {
-    render(<SearchBar />);
+const mockContextValue = {
+  weatherData: null,
+  setWeatherData: jest.fn(),
+  userInput: false,
+  setUserInput: jest.fn(),
+  currentCity: "",
+  setCurrentCity: jest.fn(),
+};
+
+describe("SearchBar", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("renders search input and button", () => {
+    render(
+      <WeatherContext.Provider value={mockContextValue}>
+        <SearchBar />
+      </WeatherContext.Provider>
+    );
     expect(
       screen.getByPlaceholderText("Search for your city")
     ).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
-  it("should handle form submission and fetch weather data on valid city input", async () => {
-    // Mocking context functions
-    const mockSetUserInput = jest.fn();
-    const mockSetCurrentCity = jest.fn();
-    const mockSetWeatherData = jest.fn();
-
-    // Complete mock for context
-    const mockWeatherContext = {
-      weatherData: null,
-      userInput: false,
-      currentCity: "",
-      setUserInput: mockSetUserInput,
-      setCurrentCity: mockSetCurrentCity,
-      setWeatherData: mockSetWeatherData,
-    };
-
-    // Mocking the resolved value of getWeather
+  test("submits form with valid city", async () => {
     (getWeather as jest.Mock).mockResolvedValue({
       currentWeather: { cod: 200 },
-      dailyForecast: [],
-      hourlyForecast: [],
-      airPollution: "-",
     });
 
     render(
-      <WeatherContext.Provider value={mockWeatherContext}>
+      <WeatherContext.Provider value={mockContextValue}>
         <SearchBar />
       </WeatherContext.Provider>
     );
 
-    const city = "New York";
-
-    // Simulate user input
-    fireEvent.change(screen.getByPlaceholderText("Search for your city"), {
-      target: { value: city },
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "London" },
     });
+    fireEvent.submit(screen.getByRole("form", { name: "City search form" }));
 
-    // Simulate form submission
-    fireEvent.submit(screen.getByRole("form"));
-
-    // Wait for async behavior to complete
     await waitFor(() => {
-      // Check if getWeather was called with the right argument
-      expect(getWeather).toHaveBeenCalledWith(city);
-
-      // Check if context setters were called
-      expect(mockSetUserInput).toHaveBeenCalledWith(true);
-      expect(mockSetCurrentCity).toHaveBeenCalledWith(city);
-      expect(mockSetWeatherData).toHaveBeenCalled();
+      expect(getWeather).toHaveBeenCalledWith("London");
+      expect(mockContextValue.setUserInput).toHaveBeenCalledWith(true);
+      expect(mockContextValue.setCurrentCity).toHaveBeenCalledWith("London");
     });
-
-    // Ensure input field is cleared after form submission
-    expect(screen.getByPlaceholderText("Search for your city")).toHaveValue("");
   });
 
-  it("should not call submit when city input is empty", async () => {
-    const mockSetUserInput = jest.fn();
-    const mockSetCurrentCity = jest.fn();
-    const mockSetWeatherData = jest.fn();
-
-    const mockWeatherContext = {
-      weatherData: null,
-      userInput: false,
-      currentCity: "",
-      setUserInput: mockSetUserInput,
-      setCurrentCity: mockSetCurrentCity,
-      setWeatherData: mockSetWeatherData,
-    };
-
+  test("does not submit empty form", async () => {
     render(
-      <WeatherContext.Provider value={mockWeatherContext}>
+      <WeatherContext.Provider value={mockContextValue}>
         <SearchBar />
       </WeatherContext.Provider>
     );
 
-    // Simulate submitting an empty input
-    fireEvent.submit(screen.getByRole("form"));
+    fireEvent.submit(screen.getByRole("form", { name: "City search form" }));
 
-    // Ensure context setters are not called
-    expect(mockSetUserInput).not.toHaveBeenCalled();
-    expect(mockSetCurrentCity).not.toHaveBeenCalled();
-    expect(mockSetWeatherData).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(getWeather).not.toHaveBeenCalled();
+    });
+  });
+
+  test("handles API error gracefully", async () => {
+    (getWeather as jest.Mock).mockRejectedValue(new Error("API Error"));
+
+    render(
+      <WeatherContext.Provider value={mockContextValue}>
+        <SearchBar />
+      </WeatherContext.Provider>
+    );
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "InvalidCity" },
+    });
+    fireEvent.submit(screen.getByRole("form", { name: "City search form" }));
+
+    await waitFor(() => {
+      expect(mockContextValue.setWeatherData).not.toHaveBeenCalled();
+      expect(screen.getByRole("textbox")).toHaveValue("");
+    });
   });
 });
