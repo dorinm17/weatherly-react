@@ -60,17 +60,19 @@ function App() {
           setLoading(false);
         }
       } catch (error) {
-        if ((error as GeolocationPositionError).code === 1) {
-          console.error("User denied geolocation access.");
-          const data: WeatherData = await getWeather(city);
-          if (data.currentWeather.cod == 200) {
-            setWeatherData(data);
+        if (error as GeolocationPositionError) {
+          if ((error as GeolocationPositionError).code === 1) {
+            console.error("User denied geolocation access.");
+            const data: WeatherData = await getWeather(city);
+            if (data.currentWeather.cod == 200) {
+              setWeatherData(data);
+            }
             setLoading(false);
+            return;
           }
-          setLoading(false);
-          return;
         }
-        console.error("Error in initial weather process:", error);
+        console.warn("Gelocalisation error:", error);
+        setLoading(false);
       }
     })();
   }, []);

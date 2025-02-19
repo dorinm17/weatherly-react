@@ -15,7 +15,7 @@ function LoadingSpinner() {
   }, []);
 
   return (
-    <div className={styles.loadingSpinner}>
+    <div data-testid="loading-spinner" className={styles.loadingSpinner}>
       <div className={styles.spinnerCircle}></div>
       {showMessage && <p>Please reconnect to the Internet.</p>}
     </div>

@@ -24,7 +24,7 @@ describe("ForecastCard Component", () => {
 
   test("renders correct icon", () => {
     render(<ForecastCard {...mockProps} />);
-
+    expect(screen.getByTestId("card-icon")).toBeInTheDocument();
     const icon = screen.getByTestId("card-icon");
     expect(icon).toHaveAttribute("src", "sun.svg");
   });

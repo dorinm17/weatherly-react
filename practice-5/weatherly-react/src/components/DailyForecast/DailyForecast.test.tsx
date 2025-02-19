@@ -66,9 +66,13 @@ describe("DailyForecast Component", () => {
 
     // Verify temperatures
     expect(screen.getByText(`${checkIfZeroTemp(20.25)}°`)).toBeInTheDocument();
-    expect(screen.getByText(`${checkIfZeroTemp(9.8)}°`, { exact: false })).toBeInTheDocument();
+    expect(
+      screen.getByText(`${checkIfZeroTemp(9.8)}°`, { exact: false })
+    ).toBeInTheDocument();
     expect(screen.getByText(`${checkIfZeroTemp(17.5)}°`)).toBeInTheDocument();
-    expect(screen.getByText(`${checkIfZeroTemp(12)}°`, { exact: false })).toBeInTheDocument();
+    expect(
+      screen.getByText(`${checkIfZeroTemp(12)}°`, { exact: false })
+    ).toBeInTheDocument();
     expect(screen.getAllByText("C")).toHaveLength(2);
   });
 
@@ -87,7 +91,7 @@ describe("DailyForecast Component", () => {
         <DailyForecast />
       </WeatherContext.Provider>
     );
-
+    expect(screen.getAllByTestId("card-icon")).toHaveLength(2);
     const icons = screen.getAllByTestId("card-icon");
     expect(icons).toHaveLength(2);
     expect(icons[0]).toHaveAttribute("src", chooseImage(800, true));

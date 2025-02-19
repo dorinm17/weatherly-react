@@ -1,7 +1,8 @@
 import styles from "./TodayForecast.module.css";
 import RightNowForecastCard from "./RightNowForecastCard/RightNowForecastCard";
 import HourlyForecastCard from "./HourlyForecastCard/HourlyForecastCard";
-import React, { useContext } from "react";
+import { useContext } from "react";
+import * as React from "react";
 import {
   WeatherData,
   FiveDayForecast,
@@ -31,7 +32,7 @@ function TodayForecast() {
   );
 
   return (
-    <section className={styles.todayForecast}>
+    <section data-testid="today-forecast" className={styles.todayForecast}>
       <RightNowForecastCard
         city={hourlyForecast.city.name as string}
         countryCode={hourlyForecast.city.country as string}

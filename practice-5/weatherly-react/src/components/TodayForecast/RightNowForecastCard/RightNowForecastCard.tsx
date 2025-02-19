@@ -1,7 +1,7 @@
 import styles from "./RightNowForecastCard.module.css";
 import { Image } from "../../../utils/types";
 
-interface RightNowForecastCardProps {
+export interface RightNowForecastCardProps {
   city: string;
   countryCode: string;
   temperature: number;
@@ -16,7 +16,7 @@ function RightNowForecastCard(props: RightNowForecastCardProps) {
   return (
     <div className={styles.rightNow}>
       <div>
-        <h3 className={styles.city}>
+        <h3 data-testid="current-city" className={styles.city}>
           {props.city}
           <span id={styles.countryCode}> {props.countryCode}</span>{" "}
           {props.temperature}
@@ -29,7 +29,12 @@ function RightNowForecastCard(props: RightNowForecastCardProps) {
         </p>
       </div>
 
-      <img className={styles.rightNowIcon} src={props.icon} alt="" />
+      <img
+        data-testid="icon"
+        className={styles.rightNowIcon}
+        src={props.icon}
+        alt=""
+      />
     </div>
   );
 }

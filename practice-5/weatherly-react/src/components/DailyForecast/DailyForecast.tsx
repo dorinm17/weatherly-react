@@ -2,7 +2,11 @@ import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
 import { useContext } from "react";
 import * as React from "react";
-import { FiveDayForecast, WeatherContext, WeatherData } from "../../utils/types";
+import {
+  FiveDayForecast,
+  WeatherContext,
+  WeatherData,
+} from "../../utils/types";
 import {
   getWeekday,
   chooseImage,
@@ -15,7 +19,7 @@ function DailyForecast() {
   const dailyForecast: FiveDayForecast = data?.dailyForecast as FiveDayForecast;
 
   return (
-    <section className={styles.fiveDayForecast}>
+    <section data-testid="daily-forecast" className={styles.fiveDayForecast}>
       {dailyForecast.list.slice(0, 5).map((forecast, index) => (
         <ForecastCard
           key={forecast.dt}

@@ -99,7 +99,7 @@ function CurrentWeather() {
   ];
 
   return (
-    <section className={styles.currentWeather}>
+    <section data-testid="current-weather" className={styles.currentWeather}>
       <WeatherDetailsList details={details} />
     </section>
   );
