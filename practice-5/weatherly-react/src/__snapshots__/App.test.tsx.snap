@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component matches snapshot 1`] = `
+<DocumentFragment>
+  <header>
+    <div>
+      <h1>
+        Weatherly
+      </h1>
+      <h2>
+        Don't be under the weather
+        <span>
+          !
+        </span>
+      </h2>
+    </div>
+    <img
+      alt=""
+      data-testid="banner-image"
+    />
+    <nav>
+      <form
+        action=""
+        aria-label="City search form"
+        autocomplete="off"
+        method="get"
+      >
+        <button
+          aria-label="Submit your search"
+          type="submit"
+        >
+          <img
+            alt="search"
+          />
+        </button>
+        <input
+          aria-label="Search for your city"
+          name="city"
+          placeholder="Search for your city"
+          type="text"
+          value=""
+        />
+      </form>
+    </nav>
+  </header>
+  <div
+    data-testid="loading-spinner"
+  >
+    <div />
+  </div>
+  <footer>
+    <p>
+      © 2025 Weatherly, LLC. All rights reserved.
+    </p>
+    <ul
+      aria-label="Social Media Links"
+      data-testid="links-list"
+    >
+      <li>
+        <a
+          href="https://www.linkedin.com/in/dorin-manea/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="LinkedIn"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.instagram.com/dorinm17/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Instagram"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.facebook.com/dorinm17/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Facebook"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href="mailto:dmanea@adobe.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Mail"
+          />
+        </a>
+      </li>
+    </ul>
+  </footer>
+</DocumentFragment>
+`;

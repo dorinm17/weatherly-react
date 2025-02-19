@@ -1,9 +1,9 @@
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import App from "./App";
 import { WeatherData } from "./utils/types";
 import { getWeather, reverseGeocode } from "./utils/fetch-data";
+import { defaultCity } from "./utils/const";
 
-// Mock the necessary modules and functions
 jest.mock("./utils/fetch-data", () => ({
   getWeather: jest.fn(),
   reverseGeocode: jest.fn(),
@@ -25,9 +25,8 @@ describe("App Component", () => {
       airPollution: {},
     } as WeatherData);
 
-    (reverseGeocode as jest.Mock).mockResolvedValue("London");
+    (reverseGeocode as jest.Mock).mockResolvedValue("Mock City");
 
-    // Mock geolocation using Object.defineProperty
     const mockGeolocation = {
       getCurrentPosition: jest.fn().mockImplementation((success) =>
         success({
@@ -41,6 +40,7 @@ describe("App Component", () => {
       watchPosition: jest.fn(),
     };
 
+    // Mock geolocation using Object.defineProperty
     Object.defineProperty(global.navigator, "geolocation", {
       value: mockGeolocation,
       writable: true,
@@ -61,12 +61,11 @@ describe("App Component", () => {
       render(<App />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByTestId("loading-spinner")).not.toBeInTheDocument();
-    });
+    expect(getWeather).toHaveBeenCalledWith("Mock City");
+    expect(screen.queryByTestId("loading-spinner")).not.toBeInTheDocument();
   });
 
-  test("handles geolocation error gracefully", async () => {
+  test("handles geolocation fetch error gracefully", async () => {
     (
       navigator.geolocation.getCurrentPosition as jest.Mock
     ).mockImplementationOnce((_, reject) => reject({ code: 2 }));
@@ -75,13 +74,24 @@ describe("App Component", () => {
       render(<App />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByTestId("loading-spinner")).not.toBeInTheDocument();
-    });
+    expect(screen.queryByTestId("loading-spinner")).not.toBeInTheDocument();
   });
 
-  //   test("matches snapshot", () => {
-  //     const { asFragment } = render(<App />);
-  //     expect(asFragment()).toMatchSnapshot();
-  //   });
+  test("handles denial of geolocation by user gracefully and fetches weather for default city", async () => {
+    (
+      navigator.geolocation.getCurrentPosition as jest.Mock
+    ).mockImplementationOnce((_, reject) => reject({ code: 1 }));
+
+    await act(async () => {
+      render(<App />);
+    });
+
+    expect(getWeather).toHaveBeenCalledWith(defaultCity);
+    expect(screen.queryByTestId("loading-spinner")).not.toBeInTheDocument();
+  });
+
+    test("matches snapshot", () => {
+      const { asFragment } = render(<App />);
+      expect(asFragment()).toMatchSnapshot();
+    });
 });
