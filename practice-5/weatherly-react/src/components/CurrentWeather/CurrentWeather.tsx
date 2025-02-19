@@ -1,14 +1,15 @@
 import styles from "./CurrentWeather.module.css";
 import WeatherDetailsList from "./WeatherDetailsList/WeatherDetailsList";
-import humidity from "/src/assets/humidity.svg";
-import temperature from "/src/assets/temperature.svg";
-import sunrise from "/src/assets/sunrise.svg";
-import wind from "/src/assets/wind.svg";
-import airQuality from "/src/assets/air-quality.svg";
-import sunset from "/src/assets/sunset.svg";
-import gusts from "/src/assets/gusts.svg";
-import cloudiness from "/src/assets/uv-index.svg";
-import React, { useContext } from "react";
+import humidity from "../../assets/humidity.svg";
+import temperature from "../../assets/temperature.svg";
+import sunrise from "../..//assets/sunrise.svg";
+import wind from "../..//assets/wind.svg";
+import airQuality from "../..//assets/air-quality.svg";
+import sunset from "../../assets/sunset.svg";
+import gusts from "../..//assets/gusts.svg";
+import cloudiness from "../../assets/uv-index.svg";
+import * as React from "react";
+import { useContext } from "react";
 import {
   WeatherData,
   HourlyForecast,
