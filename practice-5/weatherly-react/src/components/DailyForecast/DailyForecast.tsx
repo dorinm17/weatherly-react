@@ -1,6 +1,7 @@
 import ForecastCard from "./ForecastCard/ForecastCard";
 import styles from "./DailyForecast.module.css";
-import React, { useContext } from "react";
+import { useContext } from "react";
+import * as React from "react";
 import { FiveDayForecast, WeatherContext, WeatherData } from "../../utils/types";
 import {
   getWeekday,

@@ -14,7 +14,12 @@ function ForecastCard(props: ForecastCardProps) {
     <div className={styles.day}>
       <div className={styles.weatherForTheDay}>
         <p>{props.weekday}</p>
-        <img className={styles.icon} src={props.icon} alt="" />
+        <img
+          data-testid="card-icon"
+          className={styles.icon}
+          src={props.icon}
+          alt=""
+        />
       </div>
 
       <div className={styles.weatherCondition}>
