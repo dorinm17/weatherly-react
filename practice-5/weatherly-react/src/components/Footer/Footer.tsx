@@ -1,7 +1,7 @@
-import linkedin from "/src/assets/linkedin.svg";
-import instagram from "/src/assets/instagram.svg";
-import facebook from "/src/assets/facebook.svg";
-import mail from "/src/assets/mail.svg";
+import linkedin from "../../assets/linkedin.svg";
+import instagram from "../../assets/instagram.svg";
+import facebook from "../../assets/facebook.svg";
+import mail from "../../assets/mail.svg";
 import styles from "./Footer.module.css";
 import SocialMediaList from "./SocialMediaList/SocialMediaList";
 
