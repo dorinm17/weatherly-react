@@ -89,4 +89,28 @@ describe("SearchBar", () => {
       expect(screen.getByRole("textbox")).toHaveValue("");
     });
   });
+
+  test("handles really long error strings gracefully", async () => {
+    (getWeather as jest.Mock).mockRejectedValue(
+      new Error(
+        "This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters.This is a really long error message that is longer than 100 characters. This is a really long error message that is longer than 100 characters."
+      )
+    );
+
+    render(
+      <WeatherContext.Provider value={mockContextValue}>
+        <SearchBar />
+      </WeatherContext.Provider>
+    );
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "InvalidCity" },
+    });
+    fireEvent.submit(screen.getByRole("form", { name: "City search form" }));
+
+    await waitFor(() => {
+      expect(mockContextValue.setWeatherData).not.toHaveBeenCalled();
+      expect(screen.getByRole("textbox")).toHaveValue("");
+    });
+  });
 });
