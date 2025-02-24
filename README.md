@@ -37,7 +37,7 @@ Transitioned to a _component-based architecture_ 🧩 using React ⚛️, making
 
 ### 🔳 Practice 5
 
-Implemented _unit testing_ using Jest to ensure individual components function correctly. It helps maintain a _high-quality_ codebase while making refactoring easier and safer.
+Implemented _unit testing_ using Jest and React Testing Library to ensure individual components function correctly. It helps maintain a _high-quality_ codebase while making refactoring easier and safer.
 
 ### 🧪 Planned Features & Improvements
 Currently, the search functionality is somewhat limited, as users can only search by city. I plan to enhance this by adding _autocomplete suggestions_ in the search bar, displaying the city, country, and, for the US, the state.
