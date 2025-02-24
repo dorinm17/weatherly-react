@@ -43,3 +43,5 @@ Implemented _unit testing_ using Jest to ensure individual components function c
 Currently, the search functionality is somewhat limited, as users can only search by city. I plan to enhance this by adding _autocomplete suggestions_ in the search bar, displaying the city, country, and, for the US, the state.
 
 Another area for improvement is _performance_. Reverse geocoding could be optimized, and the overall rendering speed could be boosted for a smoother user experience.
+
+Finally, I plan to enhance inclusivity by implementing toggles that allow users to switch between Celsius and Fahrenheit.
